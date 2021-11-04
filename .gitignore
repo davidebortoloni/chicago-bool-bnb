@@ -12,3 +12,7 @@ npm-debug.log
 yarn-error.log
 composer.lock
 package-lock.json
+package.json
+mix-manifest.json
+/public/css/app.css
+/public/js/app.js
