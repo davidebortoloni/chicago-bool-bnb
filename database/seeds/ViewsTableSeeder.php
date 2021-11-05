@@ -17,7 +17,7 @@ class ViewsTableSeeder extends Seeder
             $views = new view();
 
             $views->day = $faker->dateTime();
-            $views->count = $faker->randomDigit();
+            $views->count = $faker->randomNumber();
             $views->ip_address = $faker->ipv4();
             $views->save();
         }
