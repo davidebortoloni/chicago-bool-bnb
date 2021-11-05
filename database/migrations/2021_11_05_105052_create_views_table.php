@@ -15,10 +15,13 @@ class CreateViewsTable extends Migration
     {
         Schema::create('views', function (Blueprint $table) {
             $table->id();
-            $table->timestamps("day");
-            $table->bigint("count");
-            $table->varchar("ip_address", 15);
+            $table->unsignedBigInteger('apartment_id')->nullable();
+            $table->date("day");
+            $table->bigInteger("count")->unsigned();
+            $table->string("ip_address", 15);
             $table->timestamps();
+
+            $table->foreign('apartment_id')->references('id')->on('apartments')->onDelete('set null');
         });
     }
 
