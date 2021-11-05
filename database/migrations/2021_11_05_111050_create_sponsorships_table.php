@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateViewsTable extends Migration
+class CreateSponsorshipsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateViewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('views', function (Blueprint $table) {
+        Schema::create('sponsorships', function (Blueprint $table) {
             $table->id();
-            $table->timestamps("day");
-            $table->bigint("count");
-            $table->varchar("ip_address", 15);
+            $table->varchar("name", 50);
+            $table->smallint("duration");
+            $table->smallint("price");
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateViewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('views');
+        Schema::dropIfExists('sponsorships');
     }
 }
