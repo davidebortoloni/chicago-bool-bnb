@@ -17,6 +17,7 @@ class ServicesTableSeeder extends Seeder
             $services = new Service();
 
             $services->name = $faker->word();
+            $services->save();
         }
     }
 }
