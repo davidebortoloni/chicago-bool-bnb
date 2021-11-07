@@ -14,12 +14,12 @@ class SponsorshipsTableSeeder extends Seeder
     public function run(Faker $faker)
     {
         for ($i = 0; $i < 5; $i++) {
-            $sponsorships = new sponsorship();
+            $sponsorship = new Sponsorship();
 
-            $sponsorships->name = $faker->word();
-            $sponsorships->duration = $faker->numberBetween(0, 1000);
-            $sponsorships->price = $faker->randomFloat(2, 10, 300);
-            $sponsorships->save();
+            $sponsorship->name = $faker->word();
+            $sponsorship->duration = $faker->numberBetween(0, 1000);
+            $sponsorship->price = $faker->randomFloat(2, 10, 300);
+            $sponsorship->save();
         }
     }
 }

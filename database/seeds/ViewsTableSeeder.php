@@ -14,12 +14,12 @@ class ViewsTableSeeder extends Seeder
     public function run(Faker $faker)
     {
         for ($i = 0; $i < 5; $i++) {
-            $views = new view();
+            $view = new View();
 
-            $views->day = $faker->dateTime();
-            $views->count = $faker->randomNumber();
-            $views->ip_address = $faker->ipv4();
-            $views->save();
+            $view->day = $faker->dateTime();
+            $view->count = $faker->randomNumber();
+            $view->ip_address = $faker->ipv4();
+            $view->save();
         }
     }
 }
