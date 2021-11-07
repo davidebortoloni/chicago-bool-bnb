@@ -27,8 +27,8 @@ class UsersTableSeeder extends Seeder
         for ($i = 0; $i < 20; $i++) {
             $user = new User();
 
-            $user->name = $faker->name();
-            $user->lastname = $faker->lastname();
+            $user->name = $faker->firstName();
+            $user->lastname = $faker->lastName();
             $user->birth_date = $faker->date();
             $user->is_owner = $faker->boolean();
             $user->email = $faker->email();
