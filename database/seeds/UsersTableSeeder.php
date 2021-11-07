@@ -4,7 +4,7 @@ use App\User;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
 
-class UserTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,16 +13,28 @@ class UserTableSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for ($i = 0; $i < 20; $i++) {
-            $users = new user();
+        $user  = new User();
 
-            $users->name = $faker->name();
-            $users->lastname = $faker->lastname();
-            $users->birth_date = $faker->date();
-            $users->is_owner = $faker->boolean();
-            $users->email = $faker->email();
-            $users->password = $faker->word();
-            $users->save();
+        $user->name = "admin";
+        $user->lastname = "admin";
+        $user->birth_date = $faker->date();
+        $user->is_owner = $faker->boolean();
+        $user->email = "admin@admin.it";;
+        $user->password = bcrypt('password');
+
+        $user->save();
+
+        for ($i = 0; $i < 20; $i++) {
+            $user = new User();
+
+            $user->name = $faker->name();
+            $user->lastname = $faker->lastname();
+            $user->birth_date = $faker->date();
+            $user->is_owner = $faker->boolean();
+            $user->email = $faker->email();
+            $user->password = bcrypt($faker->word());
+
+            $user->save();
         }
     }
 }

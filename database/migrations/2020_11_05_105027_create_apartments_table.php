@@ -26,6 +26,7 @@ class CreateApartmentsTable extends Migration
             $table->mediumInteger('sqrmt');
             $table->string('image')->nullable();
             $table->boolean('visibility');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
