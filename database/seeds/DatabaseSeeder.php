@@ -1,6 +1,5 @@
 <?php
 
-use App\models\Service;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,6 +16,7 @@ class DatabaseSeeder extends Seeder
             ViewsTableSeeder::class,
             SponsorshipsTableSeeder::class,
             ServicesTableSeeder::class,
+            UserTableSeeder::class,
         ]);
     }
 }
