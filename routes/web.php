@@ -21,5 +21,5 @@ Auth::routes(['register' => true]);
 
 //! Routes admin
 Route::middleware('auth')->name('admin.')->prefix('admin')->namespace('Admin')->group(function() {
-    Route::get('/', 'HomeController@index')->name('.index');
+    Route::get('/', 'HomeController@index')->name('.home');
 });

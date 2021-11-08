@@ -20,4 +20,6 @@
         </div>
     </div>
 </div>
+
+{{-- <meta http-equiv="refresh" content="2;url={{ route('admin.index') }}"> --}}
 @endsection
