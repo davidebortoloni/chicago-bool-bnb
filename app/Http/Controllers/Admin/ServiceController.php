@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Service;
+
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -13,7 +15,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        $services = Service::all();
+        return view('admin.services.index', compact('services'));
     }
 
     /**
@@ -23,7 +26,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        $service = new Service();
+        return view('admin.services.create', compact('service'));
     }
 
     /**
@@ -34,7 +38,14 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $service = new Service();
+        $service->fill($data);
+
+        $service->save();
+
+        return redirect()->route('admin.services.show', compact('service'));
     }
 
     /**
@@ -43,9 +54,9 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Service $service)
     {
-        //
+        return view('admin.services.show', compact('service'));
     }
 
     /**
@@ -54,9 +65,9 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Service $service)
     {
-        //
+        return view('admin.posts.edit', compact('service'));
     }
 
     /**
@@ -68,7 +79,14 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+
+        $service = new Service();
+        $service->fill($data);
+
+        $service->save();
+
+        return redirect()->route('admin.services.show', compact('service'));
     }
 
     /**
@@ -77,8 +95,9 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Service $service)
     {
-        //
+        $service->delete();
+        return redirect()->route('admin.posts.index')->with('alert-message', 'Servizio eliminato con successo')->with('alert-type', 'success');
     }
 }
