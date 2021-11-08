@@ -19,7 +19,7 @@ class CreateAddressesTable extends Migration
             $table->smallInteger('number');
             $table->string('street');
             $table->string('city');
-            $table->char('cap', 5);
+            $table->integer('cap');
             $table->string('province');
             $table->string('region');
             $table->float('lat', 9, 6);
