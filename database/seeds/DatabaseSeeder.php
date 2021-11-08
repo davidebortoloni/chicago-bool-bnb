@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             ServicesTableSeeder::class,
             SponsorshipsTableSeeder::class,
             ApartmentsTableSeeder::class,
+            AddressesTableSeeder::class,
             MessagesTableSeeder::class,
             ViewsTableSeeder::class,
         ]);
