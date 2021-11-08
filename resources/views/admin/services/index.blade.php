@@ -22,9 +22,6 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nome</th>
-                    <th scope='col'>Durata (Ore)</th>
-                    <th scope='col'>Prezzo (&euro;)</th>
-                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
