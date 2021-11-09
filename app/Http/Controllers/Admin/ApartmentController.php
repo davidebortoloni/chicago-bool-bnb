@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Apartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,9 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = Auth::id();
+        $apartments = Apartment::where('user_id', $user_id)->get();
+        return view('apartments.index', compact('apartments'));
     }
 
     /**
