@@ -2,7 +2,6 @@
 
 use App\Models\Sponsorship;
 use Illuminate\Database\Seeder;
-use Faker\Generator as Faker;
 
 class SponsorshipsTableSeeder extends Seeder
 {
@@ -11,15 +10,32 @@ class SponsorshipsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run(Faker $faker)
+    public function run()
     {
-        for ($i = 0; $i < 5; $i++) {
-            $sponsorship = new Sponsorship();
+        $sponsorships = [
+            [
+                'name' => 'Basic',
+                'duration' => '24',
+                'price' => '2.99'
+            ],
+            [
+                'name' => 'Standard',
+                'duration' => '72',
+                'price' => '5.99'
+            ],
+            [
+                'name' => 'Plus',
+                'duration' => '144',
+                'price' => '9.99'
+            ]
+        ];
 
-            $sponsorship->name = $faker->word();
-            $sponsorship->duration = $faker->numberBetween(0, 1000);
-            $sponsorship->price = $faker->randomFloat(2, 10, 300);
-            $sponsorship->save();
+        foreach ($sponsorships as $sponsorship) {
+            $newSponsorship = new Sponsorship();
+            $newSponsorship->name = $sponsorship['name'];
+            $newSponsorship->duration = $sponsorship['duration'];
+            $newSponsorship->price = $sponsorship['price'];
+            $newSponsorship->save();
         }
     }
 }
