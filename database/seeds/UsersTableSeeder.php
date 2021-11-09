@@ -24,6 +24,17 @@ class UsersTableSeeder extends Seeder
 
         $user->save();
 
+        $user  = new User();
+
+        $user->name = "Marco";
+        $user->lastname = "Rossi";
+        $user->birth_date = $faker->date();
+        $user->is_owner = $faker->boolean();
+        $user->email = "marcorossi@email.it";;
+        $user->password = bcrypt('password');
+
+        $user->save();
+
         for ($i = 0; $i < 20; $i++) {
             $user = new User();
 
