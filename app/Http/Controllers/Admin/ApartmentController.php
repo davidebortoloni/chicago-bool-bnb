@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
+use App\models\Service;
+use App\Models\Sponsorship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class ApartmentController extends Controller
@@ -30,7 +33,10 @@ class ApartmentController extends Controller
      */
     public function create()
     {
-        //
+        $apartment = new Apartment();
+        $sponsorships = Sponsorship::all();
+        $services = Service::all();
+        return view('apartments.create', compact('apartment', 'sponsorships', 'services'));
     }
 
     /**
@@ -41,7 +47,34 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(
+            [
+                'description' => 'required|string|min:10',
+                'n_rooms' => 'required|numeric|min:1',
+                'n_beds' => 'required|numeric|min:1',
+                'n_baths' => 'required|numeric|min:1',
+                'image' => 'required|image',
+                'services' => 'nullable|exists:tags,id'
+            ]
+        );
+
+        $data = $request->all();
+
+        $apartment = new Apartment();
+        $data['user_id'] = Auth::id();
+
+        if (array_key_exists('image', $data)) {
+            $img_url = Storage::put('apartment_images', $data['image']);
+            $data['image'] = $img_url;
+        }
+
+        $apartment->fill($data);
+
+        $apartment->save();
+
+        if (array_key_exists('services', $data)) $apartment->services()->attach($data['services']);
+
+        return redirect()->route('apartments.show', compact('apartment'));
     }
 
     /**
@@ -50,9 +83,9 @@ class ApartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Apartment $apartment)
     {
-        //
+        return view('apartments.show', compact('apartment'));
     }
 
     /**
@@ -61,9 +94,14 @@ class ApartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Apartment $apartment)
     {
-        //
+        $services = Service::all();
+
+        //recupero id del post che voglio editare
+        $service_ids = $apartment->services->pluck('id')->toArray();
+
+        return view('apartments.edit', compact('services', 'apartment', 'service_ids'));
     }
 
     /**
@@ -73,9 +111,34 @@ class ApartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Apartment $apartment)
     {
-        //
+        $request->validate(
+            [
+                'description' => 'required|string|min:10',
+                'n_rooms' => 'required|numeric|min:1',
+                'n_beds' => 'required|numeric|min:1',
+                'n_baths' => 'required|numeric|min:1',
+                'image' => 'required|image',
+                'services' => 'nullable|exists:tags,id'
+            ]
+        );
+
+        $data = $request->all();
+
+        if (!array_key_exists('services', $data) && $apartment->services) $apartment->services()->detach();
+        else $apartment->services()->sync($data['services']);
+
+
+        if (array_key_exists('image', $data)) {
+            if ($apartment->image) Storage::delete($apartment->image);
+            $img_url = Storage::put('apartments_images', $data['image']);
+            $data['image'] = $img_url;
+        }
+
+        $apartment->update($data);
+
+        return redirect()->route('apartments.show', compact('apartment'));
     }
 
     /**
@@ -84,8 +147,11 @@ class ApartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Apartment $apartment)
     {
-        //
+        if (count($apartment->services)) $apartment->services()->detach();
+        if ($apartment->image) Storage::delete($apartment->image);
+        $apartment->delete();
+        return redirect()->route('apartments.index')->with('alert-message', 'Appartamento eliminato con successo.')->with('alert-type', 'success');
     }
 }
