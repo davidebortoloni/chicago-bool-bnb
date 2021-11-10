@@ -9,7 +9,7 @@
         <h1>Aggiungi appartamento</h1>
     </header>
         <section id="form">
-            @include("includes.admin.apartments.form")
+            @include("includes.admin.apartment.form")
         </section>
 
 </div>

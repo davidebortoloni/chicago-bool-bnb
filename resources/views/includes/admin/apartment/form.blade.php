@@ -13,12 +13,12 @@
         <div class="form-group">
             <label for="region">Regione</label>
             <input type="text" class="form-control @error("region") is-invalid @enderror" id="region" name="region" placeholder="Regione" value="{{$address->region}}">
-        </div>
+        </div> 
         
         <div class="form-group">
             <label for="province">Provincia</label>
             <input type="text" class="form-control @error("province") is-invalid @enderror" id="province" name="province" placeholder="Provincia" value="{{$address->province}}">
-        </div>
+        </div> 
         
         <div class="form-group">
             <label for="city">Città</label>

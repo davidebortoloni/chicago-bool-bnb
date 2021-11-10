@@ -21,5 +21,5 @@
     </div>
 </div>
 
-{{-- <meta http-equiv="refresh" content="2;url={{ route('admin.index') }}"> --}}
+<meta http-equiv="refresh" content="1;url={{ route('admin.apartments.index') }}">
 @endsection
