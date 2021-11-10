@@ -1,0 +1,24 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <div class="row">
+            <figure class="col-12 col-md-6">
+                <img src="{{$apartment->image}}" alt="" class="img-fluid">
+            </figure>
+            <div class="col-12 col-md-6">
+                <div id="description" class="mb-2">{{$apartment->description}}</div>
+                <div>Proprietario: <strong>{{$apartment->user->name}}</strong></div>
+                <div id="info" class="d-flex justify-content-between align-items-center">
+                    <div>Numero stanze: <strong>{{$apartment->n_rooms}}</strong></div>
+                    <div>Numero letti: <strong>{{$apartment->n_beds}}</strong></div>
+                    <div>Numero bagni: <strong>{{$apartment->n_baths}}</strong></div>
+                    <div>Metri quadri: <strong>{{$apartment->sqrmt}}</strong></div> 
+                </div>
+                <div id="availability"><strong>@if ($apartment->visibility) Disponibile @else Non disponibile @endif</strong></div>
+            </div>
+        </div>
+        <a href="{{route('apartments.index')}}" class="btn btn-primary">Torna a lista appartamenti</a>
+        <a href="{{route('apartments.edit', $apartment->id)}}" class="btn btn-dark">Modifica</a>
+    </div>
+@endsection
