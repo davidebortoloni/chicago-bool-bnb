@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Apartment extends Model
 {
     use SoftDeletes;
-    protected $fillable = ['description', 'n_rooms', 'n_beds', 'n_baths', 'sqrmt', 'image', 'visibility'];
+    protected $fillable = ['description', 'n_rooms', 'n_beds', 'n_baths', 'sqrmt', 'image', 'visibility', 'user_id'];
 
     public function address()
     {

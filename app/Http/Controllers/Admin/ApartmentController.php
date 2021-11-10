@@ -53,7 +53,7 @@ class ApartmentController extends Controller
                 'n_rooms' => 'required|numeric|min:1',
                 'n_beds' => 'required|numeric|min:1',
                 'n_baths' => 'required|numeric|min:1',
-                'image' => 'required|image',
+                'image' => 'required|string',
                 'services' => 'nullable|exists:tags,id'
             ]
         );
