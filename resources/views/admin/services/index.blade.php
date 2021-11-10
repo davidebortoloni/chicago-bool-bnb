@@ -30,10 +30,10 @@
                         <td>{{ $service->id }}</td>
                         <td>{{ $service->name }}</td>
                         <td class="d-flex justify-content-end">
-                            <a href="{{ route('admin.services.show', $services->id) }}" class="btn btn-primary">Vai</a>
-                            <a href="{{ route('admin.services.edit', $services->id) }}"
+                            <a href="{{ route('admin.services.show', $service->id) }}" class="btn btn-primary">Vai</a>
+                            <a href="{{ route('admin.services.edit', $service->id) }}"
                                 class="btn btn-secondary mx-2">Modifica</a>
-                            <form action="{{ route('admin.services.destroy', $services->id) }}" method="POST">
+                            <form action="{{ route('admin.services.destroy', $service->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-warning">Cancella</button>

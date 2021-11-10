@@ -23,4 +23,5 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->name('admin.')->prefix('admin')->namespace('Admin')->group(function () {
     Route::resource('sponsorships', 'SponsorshipController');
+    Route::resource('services', 'ServiceController');
 });
