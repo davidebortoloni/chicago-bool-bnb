@@ -15,17 +15,17 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
-Route::get('/', 'HomeController@index')->name('welcome');
-Route::resource('/apartments', 'Admin\ApartmentController');
-Route::middleware('auth')->group(function () {
-    Route::get('/home', 'Homecontroller@index')->name('home');
-});
+Route::get('/', 'HomeController@index')->name('guest.home');
 
 Route::middleware('auth')->name('admin.')->prefix('admin')->namespace('Admin')->group(function () {
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+    Route::resource('apartments', 'ApartmentController');
     Route::resource('sponsorships', 'SponsorshipController');
     Route::resource('services', 'ServiceController');
 });
 
-Route::get('/profile', 'Admin\ProfileController@index')->name('profile');
+Route::get('{any?}', function () {
+    return view('guest.home');
+})->where('any', '.*');

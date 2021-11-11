@@ -7,7 +7,7 @@
         <p>Prezzo: {{ $sponsorship->price }} euro</p>
        
         <div class="d-flex justify-content-end">
-            <a href="{{ route('admin.sponsorships.index') }}" class="btn btn-primary">Indietro</a>
+            <a href="{{ route('admin.sponsorships.index') }}" class="btn btn-primary">Lista sponsorizzazioni</a>
             <a href="{{ route('admin.sponsorships.edit', $sponsorship->id) }}" class="btn btn-secondary mx-2">Modifica</a>
             <form action="{{ route('admin.sponsorships.destroy', $sponsorship->id) }}" method="POST">
                 @csrf

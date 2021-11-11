@@ -104,7 +104,8 @@ class SponsorshipController extends Controller
         $sponsorship->update($data);
 
 
-        return redirect()->route('admin.sponsorships.show', $sponsorship->id);
+        // return redirect()->route('admin.sponsorships.show', $sponsorship->id);
+        return redirect()->route('admin.sponsorships.index');
     }
 
     /**
@@ -117,6 +118,6 @@ class SponsorshipController extends Controller
     {
         $sponsorship->delete();
 
-        return redirect()->route('admin.sponsorships.index')->with('delete', $sponsorship->name);
+        return redirect()->route('admin.sponsorships.index')->with('alert-message', 'Sponsorizzazione eliminata con successo.')->with('alert-type', 'success');
     }
 }

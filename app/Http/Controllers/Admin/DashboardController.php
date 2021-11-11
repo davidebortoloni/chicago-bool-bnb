@@ -7,11 +7,11 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ProfileController extends Controller
+class DashboardController extends Controller
 {
     public function index()
     {
         $user = Auth::user();
-        return view('profile', compact('user'));
+        return view('admin.dashboard', compact('user'));
     }
 }

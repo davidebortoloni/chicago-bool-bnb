@@ -33,7 +33,7 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-                            <a class="dropdown-item" href="{{ route('apartments.index') }}">
+                            <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
                                 Dashboard
                             </a>
 

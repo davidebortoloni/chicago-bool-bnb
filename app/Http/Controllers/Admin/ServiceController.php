@@ -69,7 +69,7 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        return view('admin.posts.edit', compact('service'));
+        return view('admin.services.edit', compact('service'));
     }
 
     /**
@@ -79,16 +79,15 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Service $service)
     {
         $data = $request->all();
 
-        $service = new Service();
-        $service->fill($data);
+        $data = $request->all();
+        $service->update($data);
 
-        $service->save();
-
-        return redirect()->route('admin.services.show', compact('service'));
+        // return redirect()->route('admin.services.show', compact('service'));
+        return redirect()->route('admin.services.index');
     }
 
     /**
@@ -100,6 +99,6 @@ class ServiceController extends Controller
     public function destroy(Service $service)
     {
         $service->delete();
-        return redirect()->route('admin.posts.index')->with('alert-message', 'Servizio eliminato con successo')->with('alert-type', 'success');
+        return redirect()->route('admin.services.index')->with('alert-message', 'Servizio eliminato con successo.')->with('alert-type', 'success');
     }
 }

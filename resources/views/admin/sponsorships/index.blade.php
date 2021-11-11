@@ -4,17 +4,15 @@
 
 <div class="container">
     <div class="d-flex justify-content-between align-items-center">
-        <h1>Sponsorships</h1>
+        <h1>Sponsorizzazioni</h1>
         <a class="btn btn-info" href="{{ route('admin.sponsorships.create') }}">Aggiungi nuova</a>
     </div>
     
     {{-- alert delete post--}}
-    @if (session('delete'))
-    <div class="my-3">
-        <div class="alert alert-danger" role="alert">
-            Eliminato con successo la sponsorship "{{ session('delete') }}"
+    @if (session('alert-message'))
+        <div class="alert alert-{{ session('alert-type') }}">
+            {{ session('alert-message') }}
         </div>
-    </div>
     @endif
 
     <table class="table">
@@ -35,7 +33,7 @@
                     <td> {{ $sponsorship->duration }}</td>
                     <td> {{ $sponsorship->price }}</td>
                     <td class="d-flex justify-content-end">
-                        <a href="{{ route('admin.sponsorships.show', $sponsorship->id) }}" class="btn btn-primary">Vai</a>
+                        {{-- <a href="{{ route('admin.sponsorships.show', $sponsorship->id) }}" class="btn btn-primary">Vai</a> --}}
                         <a href="{{ route('admin.sponsorships.edit', $sponsorship->id) }}" class="btn btn-secondary mx-2">Modifica</a>
                         <form action="{{ route('admin.sponsorships.destroy', $sponsorship->id) }}" method="POST">
                             @csrf

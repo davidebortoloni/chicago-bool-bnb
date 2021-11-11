@@ -23,7 +23,7 @@ class ApartmentController extends Controller
     {
         $user_id = Auth::id();
         $apartments = Apartment::where('user_id', $user_id)->get();
-        return view('apartments.index', compact('apartments'));
+        return view('admin.apartments.index', compact('apartments'));
     }
 
     /**
@@ -36,7 +36,7 @@ class ApartmentController extends Controller
         $apartment = new Apartment();
         $sponsorships = Sponsorship::all();
         $services = Service::all();
-        return view('apartments.create', compact('apartment', 'sponsorships', 'services'));
+        return view('admin.apartments.create', compact('apartment', 'sponsorships', 'services'));
     }
 
     /**
@@ -53,7 +53,8 @@ class ApartmentController extends Controller
                 'n_rooms' => 'required|numeric|min:1',
                 'n_beds' => 'required|numeric|min:1',
                 'n_baths' => 'required|numeric|min:1',
-                'image' => 'required|string',
+                'sqrmt' => 'required|numeric|min:1',
+                'image' => 'required|image',
                 'services' => 'nullable|exists:tags,id'
             ]
         );
@@ -65,7 +66,7 @@ class ApartmentController extends Controller
 
         if (array_key_exists('image', $data)) {
             $img_url = Storage::put('apartment_images', $data['image']);
-            $data['image'] = $img_url;
+            $data['image'] = url("storage/$img_url");
         }
 
         $apartment->fill($data);
@@ -74,7 +75,7 @@ class ApartmentController extends Controller
 
         if (array_key_exists('services', $data)) $apartment->services()->attach($data['services']);
 
-        return redirect()->route('apartments.show', compact('apartment'));
+        return redirect()->route('admin.apartments.show', compact('apartment'));
     }
 
     /**
@@ -85,7 +86,7 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        return view('apartments.show', compact('apartment'));
+        return view('admin.apartments.show', compact('apartment'));
     }
 
     /**
@@ -101,7 +102,7 @@ class ApartmentController extends Controller
         //recupero id del post che voglio editare
         $service_ids = $apartment->services->pluck('id')->toArray();
 
-        return view('apartments.edit', compact('services', 'apartment', 'service_ids'));
+        return view('admin.apartments.edit', compact('services', 'apartment', 'service_ids'));
     }
 
     /**
@@ -138,7 +139,7 @@ class ApartmentController extends Controller
 
         $apartment->update($data);
 
-        return redirect()->route('apartments.show', compact('apartment'));
+        return redirect()->route('admin.apartments.show', compact('apartment'));
     }
 
     /**
@@ -152,6 +153,6 @@ class ApartmentController extends Controller
         if (count($apartment->services)) $apartment->services()->detach();
         if ($apartment->image) Storage::delete($apartment->image);
         $apartment->delete();
-        return redirect()->route('apartments.index')->with('alert-message', 'Appartamento eliminato con successo.')->with('alert-type', 'success');
+        return redirect()->route('admin.apartments.index')->with('alert-message', 'Appartamento eliminato con successo.')->with('alert-type', 'success');
     }
 }

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Crea nuova sponsorship</h1>
+    <h1>Crea nuova sponsorizzazione</h1>
 
     <form action="{{ route('admin.sponsorships.store') }}" method="POST">
         @csrf
@@ -30,7 +30,7 @@
 
         {{-- prezzo sponsorship --}}
         <div class="form-group">
-            <label for="price">Durata</label>
+            <label for="price">Prezzo</label>
             <input type="text" class="form-control @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price', '') }}">
             @error('price')
                 <div class="invalid-feedback">

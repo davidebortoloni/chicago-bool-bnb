@@ -2,15 +2,16 @@
 
 @section('content')
     <div class="container">
-        <form method="post" action="{{route('apartments.store')}}">
+        <form method="post" action="{{ route('admin.apartments.update', $apartment->id) }}">
+            @method('PATCH')
             @csrf
             <div class="form-group">
                 <label for="description" class="h5">Descrizione appartamento</label>
                 <textarea class="form-control" id="description" name="description" rows="8"></textarea>
             </div>
             <div class="form-group">
-                <label for="image" class="h5">Inserisci immagine</label>
-                <input type="text" class="form-control" id="image" name="image">
+                <label for="image"class="h5">Inserisci immagine</label>
+                <input type="file" class="form-control-file" id="image" name="image">
               </div>
               <div class="form-row">
             <div class="form-group col-12  col-md-3">
@@ -26,8 +27,8 @@
                 <input type="number" class="form-control" id="n_baths" name="n_baths" min="0">
             </div>
             <div class="form-group col-12  col-md-3">
-                <label for="sqrmt"class="h5">Metri quadri</label>
-                <input type="number" class="form-control" id="sqrmt" name="sqrmt" min="0">
+                <label for="n_baths"class="h5">Metri quadri</label>
+                <input type="number" class="form-control" id="n_baths" name="n_baths" min="0">
             </div>
             </div>
             <div class="h5">Servizi</div>  

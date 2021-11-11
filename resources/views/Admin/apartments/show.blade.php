@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <figure class="col-12 col-md-6">
-                <img src="{{$apartment->image}}" alt="" class="img-fluid">
+                <img src="{{ $apartment->image }}" alt="" class="img-fluid">
             </figure>
             <div class="col-12 col-md-6">
                 <div id="description" class="mb-2">{{$apartment->description}}</div>
@@ -18,7 +18,12 @@
                 <div id="availability"><strong>@if ($apartment->visibility) Disponibile @else Non disponibile @endif</strong></div>
             </div>
         </div>
-        <a href="{{route('apartments.index')}}" class="btn btn-primary">Torna a lista appartamenti</a>
-        <a href="{{route('apartments.edit', $apartment->id)}}" class="btn btn-dark">Modifica</a>
+        <a href="{{ route('admin.apartments.index') }}" class="btn btn-primary">Lista delle tue case</a>
+        <a href="{{ route('admin.apartments.edit', $apartment->id) }}" class="btn btn-warning disabled">Modifica</a>
+        <form class="d-inline" action="{{ route('admin.apartments.destroy', $apartment->id) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <input type="submit" value="Elimina" class="btn btn-danger">
+          </form>
     </div>
 @endsection

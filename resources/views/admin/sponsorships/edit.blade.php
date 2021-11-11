@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Modifica sponsorship</h1>
+    <h1>Modifica sponsorizzazione</h1>
 
     <form action="{{ route('admin.sponsorships.update', $sponsorship->id) }}" method="POST">
         @method('PATCH')
@@ -31,7 +31,7 @@
 
         {{-- prezzo sponsorship --}}
         <div class="form-group">
-            <label for="price">Durata</label>
+            <label for="price">Prezzo</label>
             <input type="text" class="form-control @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('name', $sponsorship->price) }}">
             @error('price')
                 <div class="invalid-feedback">
@@ -43,7 +43,7 @@
         <button type="submit" class="btn btn-success">Invia</button>
     </form>
     <div class="d-flex justify-content-end mt-3">
-        <a href="{{ route('admin.sponsorships.show', $sponsorship->id) }}" class="btn btn-secondary">Indietro</a>
+        <a href="{{ route('admin.sponsorships.index', $sponsorship->id) }}" class="btn btn-secondary">Indietro</a>
     </div>
 </div>
     

@@ -16,18 +16,19 @@
                 <div class="card-body">
                     @if ($user->id == 1)
                         {{-- {{ route('admin.users.index') }} --}}
-                        <a href="#" class="btn btn-secondary">Utenti</a>
-                        <a href="#" class="btn btn-secondary">Case</a>
-                        <a href="#" class="btn btn-secondary">Sponsorizzazioni</a>
-                        <a href="#" class="btn btn-secondary">Servizi</a>
+                        <a href="#" class="btn btn-secondary disabled">Utenti</a>
+                        <a href="#" class="btn btn-secondary disabled">Tutte le case</a>
+                        <a href="{{ route('admin.apartments.index') }}" class="btn btn-secondary">Case admin</a>
+                        <a href="{{ route('admin.sponsorships.index') }}" class="btn btn-secondary">Sponsorizzazioni</a>
+                        <a href="{{ route('admin.services.index') }}" class="btn btn-secondary">Servizi</a>
                         @else
                         <ul class="list-unstyled">
                             <li><strong>Data di nascita:</strong> {{ $user->birth_date }}</li>
                             <li><strong>Email:</strong> {{ $user->email }}</li>
                             <li><strong>Case inserite sulla piattaforma:</strong> {{ count($user->apartments) }} ({{ count($user->apartments->where('visibility', '=', '1')) }} disponibili)</li>
                         </ul>
-                        <a href="#" class="btn btn-secondary">Le tue case</a>
-                        <a href="#" class="btn btn-secondary">Modifica i tuoi dati</a>
+                        <a href="{{ route('admin.apartments.index') }}" class="btn btn-secondary">Le tue case</a>
+                        <a href="#" class="btn btn-secondary disabled">Modifica i tuoi dati</a>
                     @endif
                 </div>
             </div>
