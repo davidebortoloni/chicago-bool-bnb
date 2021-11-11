@@ -137,7 +137,7 @@ class ApartmentController extends Controller
 
         if (array_key_exists('image', $data)) {
             if ($apartment->image) Storage::delete($apartment->image);
-            $img_url = Storage::put('apartments_images', $data['image']);
+            $img_url = Storage::put('apartment_images', $data['image']);
             $data['image'] = url("storage/$img_url");
         }
 
