@@ -80,12 +80,17 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    BoolBnB - Sito in costruzione
-                </div>
+                
+                <div id="app">
 
+                </div>
                 
             </div>
         </div>
+
+        <script src="{{asset("js/front.js")}}">
+
+        </script>
     </body>
 </html>
+
