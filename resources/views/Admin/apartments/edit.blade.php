@@ -22,7 +22,7 @@
               {{-- indirizzo --}}
               <div class="form-row">
                 <div class="form-group col-12  col-md-2">
-                    <label for="street" class="h5">Via</label>
+                    <label for="street" class="h5">Indirizzo</label>
                     <input type="text" class="form-control @error('street') is-invalid @enderror" id="street" name="street" value="{{ $address->street }}">
                     @error('street')
                         <div class="invalid-feedback">{{ $message }}</div>
