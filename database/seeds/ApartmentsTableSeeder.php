@@ -31,7 +31,7 @@ class ApartmentsTableSeeder extends Seeder
             $apartment->n_beds = $faker->randomDigitNotNull();
             $apartment->n_baths = $faker->randomDigitNotNull();
             $apartment->sqrmt = $faker->numberBetween(30, 200);
-            $apartment->image = "https://loremflickr.com/600/350/house?random=$i";
+            $apartment->image = "http://127.0.0.1:8000/storage/apartment_images/house1.jpg";
             $apartment->visibility = $faker->boolean();
 
             $apartment->save();
