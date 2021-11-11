@@ -29,14 +29,14 @@
                 </div>
                 <div class="form-group col-12  col-md-2">
                     <label for="number"class="h5">Numero</label>
-                    <input type="text" class="form-control @error('number') is-invalid @enderror" id="number" name="number" value="{{ old('number', '') }}">
+                    <input type="number" class="form-control @error('number') is-invalid @enderror" id="number" name="number" value="{{ old('number', '') }}">
                     @error('number')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group col-12  col-md-2">
                     <label for="cap"class="h5">CAP</label>
-                    <input type="text" class="form-control @error('cap') is-invalid @enderror" id="cap" name="cap" value="{{ old('cap', '') }}">
+                    <input type="number" class="form-control @error('cap') is-invalid @enderror" id="cap" name="cap" value="{{ old('cap', '') }}">
                     @error('cap')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

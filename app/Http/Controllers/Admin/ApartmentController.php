@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\Apartment;
 use App\models\Service;
 use App\Models\Sponsorship;
@@ -55,7 +56,13 @@ class ApartmentController extends Controller
                 'n_baths' => 'required|numeric|min:1',
                 'sqrmt' => 'required|numeric|min:1',
                 'image' => 'required|image',
-                'services' => 'nullable|exists:tags,id'
+                'services' => 'nullable|exists:tags,id',
+                'street' => 'required|string',
+                'number' => 'required|numeric',
+                'cap' => 'required|numeric',
+                'city' => 'required|string',
+                'province' => 'required|string',
+                'region' => 'required|string',
             ]
         );
 
@@ -76,6 +83,16 @@ class ApartmentController extends Controller
         $apartment->fill($data);
 
         $apartment->save();
+
+        // salvataggio indirizzo
+        $address = new Address();
+        $data['apartment_id'] = $apartment->id;
+        $data['lat'] = '335.666';
+        $data['lon'] = '999.666';
+
+        $address->fill($data);
+
+        $address->save();
 
         if (array_key_exists('services', $data)) $apartment->services()->attach($data['services']);
 
