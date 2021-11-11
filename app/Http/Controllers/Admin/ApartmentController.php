@@ -10,6 +10,7 @@ use App\Models\Sponsorship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
@@ -84,11 +85,18 @@ class ApartmentController extends Controller
 
         $apartment->save();
 
-        // salvataggio indirizzo
+        // salvataggio indirizzo con chiamata API a tom tom per lat e lon
         $address = new Address();
         $data['apartment_id'] = $apartment->id;
-        $data['lat'] = '335.666';
-        $data['lon'] = '999.666';
+
+        $fullAddress = $data['street'] . ' ' . $data['number'] . ' ' . $data['city'];
+        $response = Http::get("https://api.tomtom.com/search/2/geocode/$fullAddress.json", [
+            'key' => 'jZuaDddMztclNzOF3DnFmOTzmzag0hcP',
+        ])->json();
+        $coordinates = $response['results'][0]['position'];
+
+        $data['lat'] = $coordinates['lat'];
+        $data['lon'] = $coordinates['lon'];
 
         $address->fill($data);
 
