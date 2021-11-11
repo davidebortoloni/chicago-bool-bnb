@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <form method="post" action="{{ route('admin.apartments.update', $apartment->id) }}">
+        <form method="post" action="{{ route('admin.apartments.update', $apartment->id) }}" enctype="multipart/form-data">
             @method('PATCH')
             @csrf
             <div class="form-group">
