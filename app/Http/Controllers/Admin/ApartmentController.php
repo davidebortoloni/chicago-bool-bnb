@@ -124,7 +124,7 @@ class ApartmentController extends Controller
                 'n_rooms' => 'required|numeric|min:1',
                 'n_beds' => 'required|numeric|min:1',
                 'n_baths' => 'required|numeric|min:1',
-                // 'image' => 'required|image',
+                'image' => 'nullable|image',
                 'services' => 'nullable|exists:tags,id'
             ]
         );
@@ -135,11 +135,11 @@ class ApartmentController extends Controller
         else $apartment->services()->sync($data['services']);
 
 
-        // if (array_key_exists('image', $data)) {
-        //     if ($apartment->image) Storage::delete($apartment->image);
-        //     $img_url = Storage::put('apartments_images', $data['image']);
-        //     $data['image'] = $img_url;
-        // }
+        if (array_key_exists('image', $data)) {
+            if ($apartment->image) Storage::delete($apartment->image);
+            $img_url = Storage::put('apartments_images', $data['image']);
+            $data['image'] = url("storage/$img_url");
+        }
 
         $apartment->update($data);
 
