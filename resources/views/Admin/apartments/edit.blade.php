@@ -43,7 +43,10 @@
             </div>
             <div class="form-group col-12  col-md-3">
                 <label for="sqrmt"class="h5">Metri quadri</label>
-                <input type="number" class="form-control" id="n_baths" name="sqrmt" min="0" value="{{$apartment->sqrmt}}">
+                <input type="number" class="form-control @error('sqrmt') is-invalid @enderror" id="n_baths" name="sqrmt" min="0" value="{{$apartment->sqrmt}}">
+                @error('sqrmt')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
             </div>
             <div class="h5">Servizi</div>  
