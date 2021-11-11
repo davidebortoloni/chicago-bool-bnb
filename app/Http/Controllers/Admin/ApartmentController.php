@@ -69,6 +69,10 @@ class ApartmentController extends Controller
             $data['image'] = url("storage/$img_url");
         }
 
+        if (!array_key_exists('visibility', $data)) {
+            $data['visibility'] = 0;
+        }
+
         $apartment->fill($data);
 
         $apartment->save();
