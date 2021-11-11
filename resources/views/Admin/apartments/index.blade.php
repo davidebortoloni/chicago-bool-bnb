@@ -30,7 +30,7 @@
         <td>@if ($apartment->visibility) Disponibile @else Non disponibile @endif</td>
         <td class="d-flex justify-content-end">
           <a href="{{ route('admin.apartments.show', $apartment->id) }}" class="btn btn-primary">Vedi</a>
-          <a href="{{ route('admin.apartments.edit', $apartment->id) }}" class="btn btn-warning disabled mx-2">Modifica</a>
+          <a href="{{ route('admin.apartments.edit', $apartment->id) }}" class="btn btn-warning mx-2">Modifica</a>
           <form class="d-inline" action="{{ route('admin.apartments.destroy', $apartment->id) }}" method="POST">
             @csrf
             @method('DELETE')

@@ -19,7 +19,7 @@
             </div>
         </div>
         <a href="{{ route('admin.apartments.index') }}" class="btn btn-primary">Lista delle tue case</a>
-        <a href="{{ route('admin.apartments.edit', $apartment->id) }}" class="btn btn-warning disabled">Modifica</a>
+        <a href="{{ route('admin.apartments.edit', $apartment->id) }}" class="btn btn-warning">Modifica</a>
         <form class="d-inline" action="{{ route('admin.apartments.destroy', $apartment->id) }}" method="POST">
             @csrf
             @method('DELETE')
