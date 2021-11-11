@@ -106,7 +106,10 @@ class ApartmentController extends Controller
         //recupero id del post che voglio editare
         $service_ids = $apartment->services->pluck('id')->toArray();
 
-        return view('admin.apartments.edit', compact('services', 'apartment', 'service_ids'));
+        // recupero indirizzo dell'appartamento
+        $address = $apartment->address;
+
+        return view('admin.apartments.edit', compact('services', 'apartment', 'service_ids', 'address'));
     }
 
     /**
