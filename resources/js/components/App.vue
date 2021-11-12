@@ -1,7 +1,7 @@
 <template>
 <div>
     <Header />
-    <Index :apartments="apartments"/>
+    <Index />
 </div>
 </template>
 
@@ -14,22 +14,6 @@ export default {
         Header,
         Index,
     },
-    data(){
-        return {
-            apartments: [],
-        }
-    },
-    computed: {
-    },
-    methods: {
-        getApartments(){
-            axios.get('http://127.0.0.1:8000/api/apartments').then(function(res){
-            this.apartments =  res.data;
-        })
-        }
-    },
-    created(){
-        this.getApartments();
-    }
+ 
 };
 </script>
