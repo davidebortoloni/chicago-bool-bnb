@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="row justify-content-center flex-wrap">
         <!-- <div v-for="(apartment, index) in apartments.data" :key="index"> 
             {{ apartment.description }}
         </div> -->
@@ -7,6 +7,7 @@
             v-for="apartment in apartments.data"
             :key="apartment"
             :apartment="apartment"
+            class="m-3"
         />
     </div>
 </template>

@@ -1,8 +1,8 @@
 <template>
-<div>
-    <Header />
-    <Index />
-</div>
+    <div>
+        <Header class="mb-5" />
+        <Index />
+    </div>
 </template>
 
 <script>
@@ -14,6 +14,5 @@ export default {
         Header,
         Index,
     },
- 
 };
 </script>
