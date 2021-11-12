@@ -13,9 +13,10 @@ class ApartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(request $request)
     {
-        $apartments = Apartment::paginate(5);
+        if ($request) $city = $request->city;
+        $apartments = Apartment::join('addresses', 'apartments.id', '=', 'addresses.apartment_id')->where('city', 'LIKE', $city)->paginate(5);
         return response()->json($apartments);
     }
 
