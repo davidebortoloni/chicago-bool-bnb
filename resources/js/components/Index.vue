@@ -8,18 +8,20 @@
             :key="index"
             :apartment="apartment"
             class="m-3"
-            @click="setCurrentApartment(index)"
         />
+        <ApartmentShow class="d-none" @click="setCurrentApartment(index)" />
     </div>
 </template>
 
 <script>
 import ApartmentCard from "./ApartmentCard.vue";
+import ApartmentShow from "./ApartmentShow.vue";
 
 export default {
     name: "Index",
     components: {
         ApartmentCard,
+        ApartmentShow,
     },
     data() {
         return {
