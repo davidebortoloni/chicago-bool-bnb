@@ -5,8 +5,8 @@
         </div> -->
         <ApartmentCard
             v-on:click="showComponent()"
-            v-for="(apartment, index) in apartments.data"
-            :key="index"
+            v-for="(apartment) in apartments.data"
+            :key="apartment.id"
             :apartment="apartment"
             class="m-3"
             :class="show === false ? 'd-none' : ''"

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Support\Arr;
+use App\Models\Service;
 use App\Models\Apartment;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,7 +18,8 @@ class ApartmentController extends Controller
     public function index(request $request)
     {
         if ($request) $city = $request->city;
-        $apartments = Apartment::join('addresses', 'apartments.id', '=', 'addresses.apartment_id')->where('city', 'LIKE', $city)->paginate(5);
+        // $city = 'quasi';
+        $apartments = Apartment::join('addresses', 'apartments.id', '=', 'addresses.apartment_id')->where('city', 'LIKE', "%$city%")->paginate(5);
         return response()->json($apartments);
     }
 
