@@ -27,8 +27,8 @@ class AddressesTableSeeder extends Seeder
             $address->cap = $faker->randomNumber(4, true);
             $address->province = $faker->word();
             $address->region = $faker->word();
-            $address->lat = $faker->randomNumber(3, false) . '.' . $address->cap = $faker->randomNumber(6, true);
-            $address->lon = $faker->randomNumber(3, false) . '.' . $address->cap = $faker->randomNumber(6, true);
+            $address->lat = $faker->randomFloat(6, 36, 47);
+            $address->lon = $faker->randomFloat(6, 6, 18);
 
             $address->save();
         }
