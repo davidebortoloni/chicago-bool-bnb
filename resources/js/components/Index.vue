@@ -1,33 +1,42 @@
 <template>
-  <div>
-      <div v-for="(apartment, index) in apartments.data" :key="index">{{apartment.description}}</div>
-  </div>
+    <div>
+        <!-- <div v-for="(apartment, index) in apartments.data" :key="index"> 
+            {{ apartment.description }}
+        </div> -->
+        <ApartmentCard
+            v-for="apartment in apartments.data"
+            :key="apartment"
+            :apartment="apartment"
+        />
+    </div>
 </template>
 
 <script>
+import ApartmentCard from "./ApartmentCard.vue";
+
 export default {
-    name: 'Index',
-      data(){
+    name: "Index",
+    components: {
+        ApartmentCard,
+    },
+    data() {
         return {
-          apartments: [],
-        }
+            apartments: [],
+        };
     },
-    computed: {
-        
-    },
+    computed: {},
     methods: {
-        getApartments(){
-            axios.get('http://127.0.0.1:8000/api/apartments').then((res) => {
-              this.apartments = res.data;
-              console.log(this.apartments);
-        })
-        }
+        getApartments() {
+            axios.get("http://127.0.0.1:8000/api/apartments").then((res) => {
+                this.apartments = res.data;
+                console.log(this.apartments);
+            });
+        },
     },
-    created(){
-        this.getApartments()
-    }}
+    created() {
+        this.getApartments();
+    },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
