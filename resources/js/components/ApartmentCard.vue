@@ -1,5 +1,5 @@
 <template>
-    <div class="apartment-card">
+    <div class="apartment-card col-4">
         <figure class="apartment-img">
             <img :src="apartment.image" alt="TITOLO" class="img-fluid" />
         </figure>

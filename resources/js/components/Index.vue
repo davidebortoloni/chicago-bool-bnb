@@ -1,13 +1,14 @@
 <template>
-    <div class="row justify-content-center flex-wrap">
+    <div class="row justify-content-center flex-wrap w-100">
         <!-- <div v-for="(apartment, index) in apartments.data" :key="index"> 
             {{ apartment.description }}
         </div> -->
         <ApartmentCard
-            v-for="apartment in apartments.data"
-            :key="apartment"
+            v-for="(apartment, index) in apartments.data"
+            :key="index"
             :apartment="apartment"
             class="m-3"
+            @click="setCurrentApartment(index)"
         />
     </div>
 </template>
@@ -32,6 +33,9 @@ export default {
                 this.apartments = res.data;
                 console.log(this.apartments);
             });
+        },
+        setCurrentApartment(index) {
+            this.currentApartment = index;
         },
     },
     created() {

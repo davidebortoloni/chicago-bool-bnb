@@ -1,9 +1,11 @@
 .apartment-card {
     max-width: 500px;
+    :hover {
+        cursor: pointer;
+    }
 }
 
 .rooms {
-    // text-align: left;
     text-align: left;
     padding: 0;
     li {
