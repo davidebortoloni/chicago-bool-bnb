@@ -10,11 +10,11 @@
             <li>Bagni: {{ apartment.n_baths }}</li>
         </ul>
 
-        <ul class="services">
+        <!-- <ul class="services">
             <li v-for="(service, id) in apartment_service" :key="id">
                 {{ service.name }}
             </li>
-        </ul>
+        </ul> -->
 
         <p>{{ apartment.description }}</p>
     </div>

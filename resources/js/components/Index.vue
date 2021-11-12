@@ -4,12 +4,14 @@
             {{ apartment.description }}
         </div> -->
         <ApartmentCard
+            v-on:click="showComponent()"
             v-for="(apartment, index) in apartments.data"
             :key="index"
             :apartment="apartment"
             class="m-3"
+            :class="show === false ? 'd-none' : ''"
         />
-        <ApartmentShow class="d-none" @click="setCurrentApartment(index)" />
+        <ApartmentShow class="d-none" :class="show === true ? 'd-none' : ''" />
     </div>
 </template>
 
@@ -26,6 +28,7 @@ export default {
     data() {
         return {
             apartments: [],
+            show: true,
         };
     },
     computed: {},
@@ -36,8 +39,13 @@ export default {
                 console.log(this.apartments);
             });
         },
+
         setCurrentApartment(index) {
             this.currentApartment = index;
+        },
+
+        showComponent() {
+            this.show = !this.show;
         },
     },
     created() {
