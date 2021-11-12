@@ -1,28 +1,34 @@
 <template>
-    <div class="row justify-content-center flex-wrap">
+    <div class="row justify-content-center flex-wrap w-100">
         <!-- <div v-for="(apartment, index) in apartments.data" :key="index"> 
             {{ apartment.description }}
         </div> -->
         <ApartmentCard
-            v-for="apartment in apartments.data"
-            :key="apartment"
+            v-on:click="showComponent()"
+            v-for="(apartment, index) in apartments.data"
+            :key="index"
             :apartment="apartment"
             class="m-3"
+            :class="show === false ? 'd-none' : ''"
         />
+        <ApartmentShow class="d-none" :class="show === true ? 'd-none' : ''" />
     </div>
 </template>
 
 <script>
 import ApartmentCard from "./ApartmentCard.vue";
+import ApartmentShow from "./ApartmentShow.vue";
 
 export default {
     name: "Index",
     components: {
         ApartmentCard,
+        ApartmentShow,
     },
     data() {
         return {
             apartments: [],
+            show: true,
         };
     },
     computed: {},
@@ -32,6 +38,14 @@ export default {
                 this.apartments = res.data;
                 console.log(this.apartments);
             });
+        },
+
+        setCurrentApartment(index) {
+            this.currentApartment = index;
+        },
+
+        showComponent() {
+            this.show = !this.show;
         },
     },
     created() {
