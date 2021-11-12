@@ -153,7 +153,13 @@ class ApartmentController extends Controller
                 'n_beds' => 'required|numeric|min:1',
                 'n_baths' => 'required|numeric|min:1',
                 'image' => 'nullable|image',
-                'services' => 'nullable|exists:tags,id'
+                'services' => 'nullable|exists:tags,id',
+                'street' => 'required|string',
+                'number' => 'required|numeric',
+                'cap' => 'required|numeric',
+                'city' => 'required|string',
+                'province' => 'required|string',
+                'region' => 'required|string',
             ]
         );
 
@@ -171,6 +177,20 @@ class ApartmentController extends Controller
 
         $apartment->update($data);
 
+        // aggiornamento indirizzo con chiamata API a tom tom per lat e lon
+        $fullAddress = $data['street'] . ' ' . $data['number'] . ' ' . $data['city'];
+        $response = Http::get("https://api.tomtom.com/search/2/geocode/$fullAddress.json", [
+            'key' => 'jZuaDddMztclNzOF3DnFmOTzmzag0hcP',
+        ])->json();
+        $coordinates = $response['results'][0]['position'];
+
+        $data['lat'] = $coordinates['lat'];
+        $data['lon'] = $coordinates['lon'];
+
+        $address = Address::where('apartment_id', $apartment->id)->first();
+
+        $address->update($data);
+
         return redirect()->route('admin.apartments.show', compact('apartment'));
     }
 
@@ -185,6 +205,7 @@ class ApartmentController extends Controller
         if (count($apartment->services)) $apartment->services()->detach();
         if ($apartment->image) Storage::delete($apartment->image);
         $apartment->delete();
+        $apartment->address->delete();
         return redirect()->route('admin.apartments.index')->with('alert-message', 'Appartamento eliminato con successo.')->with('alert-type', 'success');
     }
 }

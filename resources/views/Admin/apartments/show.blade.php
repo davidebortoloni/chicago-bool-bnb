@@ -15,6 +15,13 @@
                     <div>Numero bagni: <strong>{{$apartment->n_baths}}</strong></div>
                     <div>Metri quadri: <strong>{{$apartment->sqrmt}}</strong></div> 
                 </div>
+                <div id="address">Indirizzo: 
+                    @if ($apartment->address)
+                        <strong>{{$apartment->address->street}}, {{$apartment->address->number}}. {{$apartment->address->cap}} {{$apartment->address->city}}, {{$apartment->address->province}} {{$apartment->address->region}}</strong></div>
+                    @else
+                        <strong> - </strong>
+                    @endif
+                </div>  
                 <div id="availability"><strong>@if ($apartment->visibility) Disponibile @else Non disponibile @endif</strong></div>
             </div>
         </div>
