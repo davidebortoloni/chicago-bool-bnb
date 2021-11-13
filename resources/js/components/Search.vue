@@ -37,7 +37,7 @@
         </section>
 
         <section
-            class="advanced-search mt-5 d-none"
+            class="advanced-search mt-5"
             :class="show === false ? '' : 'd-none'"
         >
             <div class="container">
