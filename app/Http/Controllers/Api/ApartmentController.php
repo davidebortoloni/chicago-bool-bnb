@@ -56,7 +56,14 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        return response()->json(['apartment' => $apartment]);
+        $address = $apartment->address;
+        $services = $apartment->services;
+        $views = $apartment->views;
+        $total_views = 0;
+        foreach ($views as $view) {
+            $total_views = $total_views + $view->count;
+        }
+        return response()->json(['apartment' => $apartment, 'address' => $address, 'services' => $services, 'views' => $total_views]);
     }
 
     /**
