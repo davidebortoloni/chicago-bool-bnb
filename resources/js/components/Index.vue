@@ -5,13 +5,13 @@
         </div> -->
         <ApartmentCard
             v-on:click="showComponent()"
-            v-for="(apartment) in apartments.data"
+            v-for="apartment in apartments.data"
             :key="apartment.id"
             :apartment="apartment"
             class="m-3"
-            :class="show === false ? 'd-none' : ''"
+            :class="show === true ? 'd-none' : ''"
         />
-        <ApartmentShow class="d-none" :class="show === true ? 'd-none' : ''" />
+        <ApartmentShow class="d-none" :class="show === true ? '' : 'd-none'" />
     </div>
 </template>
 
@@ -28,7 +28,7 @@ export default {
     data() {
         return {
             apartments: [],
-            show: true,
+            show: false,
         };
     },
     computed: {},
