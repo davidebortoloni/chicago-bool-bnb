@@ -19,8 +19,12 @@ class ApartmentController extends Controller
     {
         if ($request) $city = $request->city;
         // $city = 'quasi';
-        $apartments = Apartment::join('addresses', 'apartments.id', '=', 'addresses.apartment_id')->where('city', 'LIKE', "%$city%")->paginate(5);
-        return response()->json($apartments);
+        $apartments = Apartment::join('addresses', 'apartments.id', '=', 'addresses.apartment_id')
+            ->with('services')
+            ->with('sponsorships')
+            ->where('city', 'LIKE', "%$city%")
+            ->get()->toArray();
+        return response()->json(['apartments' => $apartments]);
     }
 
     /**
@@ -52,7 +56,7 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        return response()->json($apartment);
+        return response()->json(['apartment' => $apartment]);
     }
 
     /**
