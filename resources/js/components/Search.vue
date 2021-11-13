@@ -122,7 +122,10 @@
                                     id="Lavastoviglie"
                                 />
                             </li>
-
+                        </ul>
+                    </div>
+                    <div class="col-3">
+                        <ul>
                             <li class="d-flex justify-content-between">
                                 <label for="Ascensore">Ascensore:</label>
                                 <input

@@ -4,7 +4,7 @@
             {{ apartment.description }}
         </div> -->
         <ApartmentCard
-            v-on:click="showComponent()"
+            @click="showComponent()"
             v-for="apartment in apartments.data"
             :key="apartment.id"
             :apartment="apartment"
