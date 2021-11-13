@@ -23,8 +23,9 @@ class ApartmentController extends Controller
             ->with('services')
             ->with('sponsorships')
             ->where('city', 'LIKE', "%$city%")
-            ->paginate(10);
-        return response()->json(['apartments' => $apartments]);
+            ->paginate(10)->toArray();
+
+        return response()->json($apartments);
     }
 
     /**
