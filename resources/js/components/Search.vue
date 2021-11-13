@@ -37,8 +37,8 @@
         </section>
 
         <section
-            class="advanced-search mt-5 d-none"
-            :class="show === false ? '' : 'd-none'"
+            class="advanced-search mt-5"
+            :class="show === true ? '' : 'd-none'"
         >
             <div class="container">
                 <div class="row text-left d-flex">
@@ -168,13 +168,13 @@ export default {
 
     data() {
         return {
-            show: true,
+            show: false,
         };
     },
 
     methods: {
         showComponent() {
-            this.show = !this.show;
+            return (this.show = !this.show);
         },
     },
 };

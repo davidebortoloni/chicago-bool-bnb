@@ -9,7 +9,7 @@
             :key="apartment.id"
             :apartment="apartment"
             class="m-3"
-            :class="show === true ? 'd-none' : ''"
+            :class="show === true ? '' : 'd-none'"
         />
         <ApartmentShow class="d-none" :class="show === true ? '' : 'd-none'" />
     </div>
@@ -45,7 +45,7 @@ export default {
         },
 
         showComponent() {
-            this.show = !this.show;
+            return (this.show = !this.show);
         },
     },
     created() {
