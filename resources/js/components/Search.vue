@@ -45,6 +45,7 @@
                     <div class="col-1 d-flex justify-content-between">
                         <label for="n_beds">Letti:</label>
                         <select name="n_beds" id="n_beds" class="mx-2">
+                            <option value=""></option>
                             <option value="n_beds" v-for="n in 10" :key="n">
                                 {{ n }}
                             </option>
@@ -54,6 +55,7 @@
                     <div class="col-1 d-flex justify-content-between">
                         <label for="rooms">Stanze:</label>
                         <select name="rooms" id="rooms" class="mx-2">
+                            <option value=""></option>
                             <option value="rooms" v-for="n in 5" :key="n">
                                 {{ n }}
                             </option>
@@ -90,7 +92,10 @@
                                     id="Lavatrice"
                                 />
                             </li>
-
+                        </ul>
+                    </div>
+                    <div class="col-3">
+                        <ul>
                             <li class="d-flex justify-content-between">
                                 <label for="Posto auto">Posto auto:</label>
                                 <input
@@ -108,10 +113,6 @@
                                     id="Televisione"
                                 />
                             </li>
-                        </ul>
-                    </div>
-                    <div class="col-3">
-                        <ul>
                             <li class="d-flex justify-content-between">
                                 <label for="Lavastoviglie"
                                     >Lavastoviglie:</label
@@ -171,7 +172,7 @@ export default {
 
     data() {
         return {
-            show: false,
+            show: true,
         };
     },
 
