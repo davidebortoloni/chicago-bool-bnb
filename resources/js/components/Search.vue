@@ -168,13 +168,13 @@ export default {
 
     data() {
         return {
-            show: true,
+            show: false,
         };
     },
 
     methods: {
         showComponent() {
-            this.show = !this.show;
+            return (this.show = !this.show);
         },
     },
 };
