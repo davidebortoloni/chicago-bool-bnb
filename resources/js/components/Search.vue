@@ -9,6 +9,8 @@
                             type="text"
                             class="form-control search-bar"
                             placeholder="Dove vuoi andare?"
+                            v-model.trim="searchInput"
+                            @keyup.enter="emitSearch()"
                         />
                     </div>
                     <div
@@ -28,7 +30,11 @@
                         </button>
                     </div>
                     <div class="col-1">
-                        <button type="button" class="btn btn-success">
+                        <button
+                            type="button"
+                            class="btn btn-success"
+                            @click="emitSearch()"
+                        >
                             Cerca
                         </button>
                     </div>
@@ -56,7 +62,7 @@
                         <label for="rooms">Stanze:</label>
                         <select name="rooms" id="rooms" class="mx-2">
                             <option value=""></option>
-                            <option value="rooms" v-for="n in 5" :key="n">
+                            <option value="rooms" v-for="n in 10" :key="n">
                                 {{ n }}
                             </option>
                         </select>
@@ -167,18 +173,22 @@
 
 <script>
 export default {
-    name: "Header",
+    name: "Search",
     props: ["apartments", "addresses", "services"],
 
     data() {
         return {
             show: true,
+            searchInput: "",
         };
     },
 
     methods: {
         showComponent() {
             return (this.show = !this.show);
+        },
+        emitSearch() {
+            this.$emit("search", this.searchInput);
         },
     },
 };

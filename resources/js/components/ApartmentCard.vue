@@ -16,7 +16,7 @@
             </li>
         </ul> -->
 
-        <p>{{ apartment.description }}</p>
+        <p class="text-left">{{ apartment.description }}</p>
     </div>
 </template>
 
