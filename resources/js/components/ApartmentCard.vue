@@ -1,11 +1,11 @@
 <template>
     <div class="apartment-card col-4 pointer">
         <figure class="apartment-img">
-            <img :src="apartment.image" alt="TITOLO" class="img-fluid" />
+            <img :src="apartment.image" :alt="apartment.title" class="img-fluid" />
         </figure>
-        <h3>TITOLO</h3>
+        <h3 class="apartment-title">{{ apartment.title }}</h3>
         <ul class="rooms">
-            <li class="mr-2">Città: {{apartment.city}}</li>
+            <li class="mr-2">Città: {{ apartment.city }}</li>
             <li class="mr-2">Camere: {{ apartment.n_rooms }}</li>
             <li class="mr-2">Letti: {{ apartment.n_beds }}</li>
             <li class="mr-2">Bagni: {{ apartment.n_baths }}</li>
@@ -27,3 +27,9 @@ export default {
     props: ["apartment"],
 };
 </script>
+
+<style scoped>
+.apartment-title{
+text-transform: capitalize;
+}
+</style>

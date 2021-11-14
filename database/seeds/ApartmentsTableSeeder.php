@@ -26,6 +26,7 @@ class ApartmentsTableSeeder extends Seeder
             $apartment = new Apartment();
 
             $apartment->user_id = Arr::random($user_ids);
+            $apartment->title = $faker->words(2, true);
             $apartment->description = $faker->paragraph();
             $apartment->n_rooms = $faker->randomDigitNotNull();
             $apartment->n_beds = $faker->randomDigitNotNull();
