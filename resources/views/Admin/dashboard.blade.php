@@ -17,8 +17,7 @@
                     @if ($user->id == 1)
                         {{-- {{ route('admin.users.index') }} --}}
                         <a href="#" class="btn btn-secondary disabled">Utenti</a>
-                        <a href="#" class="btn btn-secondary disabled">Tutte le case</a>
-                        <a href="{{ route('admin.apartments.index') }}" class="btn btn-secondary">Case admin</a>
+                        <a href="{{ route('admin.apartments.index') }}" class="btn btn-secondary">Tutte le case</a>
                         <a href="{{ route('admin.sponsorships.index') }}" class="btn btn-secondary">Sponsorizzazioni</a>
                         <a href="{{ route('admin.services.index') }}" class="btn btn-secondary">Servizi</a>
                         @else
