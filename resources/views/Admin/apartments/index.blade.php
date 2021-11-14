@@ -15,6 +15,9 @@
     <thead>
       <tr>
         <th scope="col">ID</th>
+        @if (auth()->user()->id == 1)
+        <th scope="col">Proprietario</th>
+        @endif
         <th scope="col">Stanze</th>
         <th scope="col">MQ</th>
         <th scope="col">Disponibilità</th>
@@ -25,6 +28,9 @@
         @forelse($apartments as $apartment)
       <tr>
         <th>{{$apartment->id}}</th>
+        @if (auth()->user()->id == 1)
+        <td>{{$apartment->user->name}} {{$apartment->user->lastname}}</td>
+        @endif
         <td>{{$apartment->n_rooms}}</td>
         <td>{{$apartment->sqrmt}}</td>
         <td>@if ($apartment->visibility) Disponibile @else Non disponibile @endif</td>
@@ -40,7 +46,7 @@
       </tr>
       @empty
         <tr>
-          <td colspan="5" class="text-center">Non ci sono case inserite</td>
+          <td @if (auth()->user()->id == 1) colspan="6" @else colspan="6" @endif class="text-center">Non ci sono case inserite</td>
         </tr>
       @endforelse
     </tbody>

@@ -24,6 +24,7 @@ class CreateAddressesTable extends Migration
             $table->string('region');
             $table->float('lat', 9, 6);
             $table->float('lon', 9, 6);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

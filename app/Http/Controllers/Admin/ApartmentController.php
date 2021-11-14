@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\Apartment;
 use App\models\Service;
 use App\Models\Sponsorship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
@@ -22,7 +24,13 @@ class ApartmentController extends Controller
     public function index()
     {
         $user_id = Auth::id();
-        $apartments = Apartment::where('user_id', $user_id)->get();
+
+        if ($user_id == 1) {
+            $apartments = Apartment::all();
+        } else {
+            $apartments = Apartment::where('user_id', $user_id)->get();
+        }
+
         return view('admin.apartments.index', compact('apartments'));
     }
 
@@ -55,7 +63,13 @@ class ApartmentController extends Controller
                 'n_baths' => 'required|numeric|min:1',
                 'sqrmt' => 'required|numeric|min:1',
                 'image' => 'required|image',
-                'services' => 'nullable|exists:tags,id'
+                'services' => 'nullable|exists:tags,id',
+                'street' => 'required|string',
+                'number' => 'required|numeric',
+                'cap' => 'required|numeric',
+                'city' => 'required|string',
+                'province' => 'required|string',
+                'region' => 'required|string',
             ]
         );
 
@@ -76,6 +90,23 @@ class ApartmentController extends Controller
         $apartment->fill($data);
 
         $apartment->save();
+
+        // salvataggio indirizzo con chiamata API a tom tom per lat e lon
+        $address = new Address();
+        $data['apartment_id'] = $apartment->id;
+
+        $fullAddress = $data['street'] . ' ' . $data['number'] . ' ' . $data['city'];
+        $response = Http::get("https://api.tomtom.com/search/2/geocode/$fullAddress.json", [
+            'key' => 'jZuaDddMztclNzOF3DnFmOTzmzag0hcP',
+        ])->json();
+        $coordinates = $response['results'][0]['position'];
+
+        $data['lat'] = $coordinates['lat'];
+        $data['lon'] = $coordinates['lon'];
+
+        $address->fill($data);
+
+        $address->save();
 
         if (array_key_exists('services', $data)) $apartment->services()->attach($data['services']);
 
@@ -106,7 +137,10 @@ class ApartmentController extends Controller
         //recupero id del post che voglio editare
         $service_ids = $apartment->services->pluck('id')->toArray();
 
-        return view('admin.apartments.edit', compact('services', 'apartment', 'service_ids'));
+        // recupero indirizzo dell'appartamento
+        $address = $apartment->address;
+
+        return view('admin.apartments.edit', compact('services', 'apartment', 'service_ids', 'address'));
     }
 
     /**
@@ -125,7 +159,13 @@ class ApartmentController extends Controller
                 'n_beds' => 'required|numeric|min:1',
                 'n_baths' => 'required|numeric|min:1',
                 'image' => 'nullable|image',
-                'services' => 'nullable|exists:tags,id'
+                'services' => 'nullable|exists:tags,id',
+                'street' => 'required|string',
+                'number' => 'required|numeric',
+                'cap' => 'required|numeric',
+                'city' => 'required|string',
+                'province' => 'required|string',
+                'region' => 'required|string',
             ]
         );
 
@@ -143,6 +183,20 @@ class ApartmentController extends Controller
 
         $apartment->update($data);
 
+        // aggiornamento indirizzo con chiamata API a tom tom per lat e lon
+        $fullAddress = $data['street'] . ' ' . $data['number'] . ' ' . $data['city'];
+        $response = Http::get("https://api.tomtom.com/search/2/geocode/$fullAddress.json", [
+            'key' => 'jZuaDddMztclNzOF3DnFmOTzmzag0hcP',
+        ])->json();
+        $coordinates = $response['results'][0]['position'];
+
+        $data['lat'] = $coordinates['lat'];
+        $data['lon'] = $coordinates['lon'];
+
+        $address = Address::where('apartment_id', $apartment->id)->first();
+
+        $address->update($data);
+
         return redirect()->route('admin.apartments.show', compact('apartment'));
     }
 
@@ -157,6 +211,7 @@ class ApartmentController extends Controller
         if (count($apartment->services)) $apartment->services()->detach();
         if ($apartment->image) Storage::delete($apartment->image);
         $apartment->delete();
+        $apartment->address->delete();
         return redirect()->route('admin.apartments.index')->with('alert-message', 'Appartamento eliminato con successo.')->with('alert-type', 'success');
     }
 }
