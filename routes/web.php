@@ -24,6 +24,7 @@ Route::middleware('auth')->name('admin.')->prefix('admin')->namespace('Admin')->
     Route::resource('apartments', 'ApartmentController');
     Route::resource('sponsorships', 'SponsorshipController');
     Route::resource('services', 'ServiceController');
+    Route::resource('users', 'UserController');
 });
 
 Route::get('{any?}', function () {
