@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\Service;
+use App\User;
 
-
-class ServiceController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::all();
-        return view('admin.services.index', compact('services'));
+        $users = User::all();
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -28,8 +27,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $service = new Service();
-        return view('admin.services.create', compact('service'));
+        $user = new User();
+        return view('admin.users.create', compact('user'));
     }
 
     /**
@@ -40,14 +39,24 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'email' => 'required|unique:users',
+            'name' => 'required',
+            'lastname' => 'required',
+            'birth_date' => 'required',
+        ], [
+            'required' => 'Il contenuto è obbligatorio',
+            'email.unique' => 'Email già in uso',
+        ]);
+
         $data = $request->all();
 
-        $service = new Service();
-        $service->fill($data);
+        $user = new User();
+        $user->fill($data);
 
-        $service->save();
+        $user->save();
 
-        return redirect()->route('admin.services.show', compact('service'));
+        return redirect()->route('admin.users.show', compact('user'));
     }
 
     /**
@@ -56,9 +65,9 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Service $service)
+    public function show(User $user)
     {
-        return view('admin.services.show', compact('service'));
+        return view('admin.users.show', compact('user'));
     }
 
     /**
@@ -67,9 +76,9 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Service $service)
+    public function edit(User $user)
     {
-        return view('admin.services.edit', compact('service'));
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -79,15 +88,14 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Service $service)
+    public function update(Request $request, User $user)
     {
         $data = $request->all();
 
         $data = $request->all();
-        $service->update($data);
+        $user->update($data);
 
-        // return redirect()->route('admin.services.show', compact('service'));
-        return redirect()->route('admin.services.index');
+        return redirect()->route('admin.users.show', compact('user'));
     }
 
     /**
@@ -96,9 +104,9 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Service $service)
+    public function destroy(User $user)
     {
-        $service->delete();
-        return redirect()->route('admin.services.index')->with('alert-message', 'Servizio eliminato con successo.')->with('alert-type', 'success');
+        $user->delete();
+        return redirect()->route('admin.users.index')->with('alert-message', 'Utente eliminato con successo.')->with('alert-type', 'success');
     }
 }
