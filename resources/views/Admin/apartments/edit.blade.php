@@ -23,42 +23,42 @@
               <div class="form-row">
                 <div class="form-group col-12  col-md-2">
                     <label for="street" class="h5">Indirizzo</label>
-                    <input type="text" class="form-control @error('street') is-invalid @enderror" id="street" name="street" value="{{ $address->street }}">
+                    <input type="text" class="form-control @error('street') is-invalid @enderror" id="street" name="street" value="{{ $apartment->address->street }}">
                     @error('street')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group col-12  col-md-2">
                     <label for="number"class="h5">Numero</label>
-                    <input type="number" class="form-control @error('number') is-invalid @enderror" id="number" name="number" value="{{ $address->number }}">
+                    <input type="number" class="form-control @error('number') is-invalid @enderror" id="number" name="number" value="{{ $apartment->address->number }}">
                     @error('number')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group col-12  col-md-2">
                     <label for="cap"class="h5">CAP</label>
-                    <input type="number" class="form-control @error('cap') is-invalid @enderror" id="cap" name="cap" value="{{ $address->cap }}">
+                    <input type="number" class="form-control @error('cap') is-invalid @enderror" id="cap" name="cap" value="{{ $apartment->address->cap }}">
                     @error('cap')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group col-12  col-md-2">
                     <label for="city"class="h5">Città</label>
-                    <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city" min="1" value="{{ $address->city }}">
+                    <input type="text" class="form-control @error('city') is-invalid @enderror" id="city" name="city" min="1" value="{{ $apartment->address->city }}">
                     @error('city')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group col-12  col-md-2">
                     <label for="province"class="h5">Provincia</label>
-                    <input type="text" class="form-control @error('province') is-invalid @enderror" id="province" name="province" value="{{ $address->province }}">
+                    <input type="text" class="form-control @error('province') is-invalid @enderror" id="province" name="province" value="{{ $apartment->address->province }}">
                     @error('province')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group col-12  col-md-2">
                     <label for="region"class="h5">Regione</label>
-                    <input type="text" class="form-control @error('region') is-invalid @enderror" id="region" name="region" value="{{ $address->region }}">
+                    <input type="text" class="form-control @error('region') is-invalid @enderror" id="region" name="region" value="{{ $apartment->address->region }}">
                     @error('region')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

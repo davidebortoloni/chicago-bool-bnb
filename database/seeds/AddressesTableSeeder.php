@@ -17,10 +17,10 @@ class AddressesTableSeeder extends Seeder
     {
         $aparments_ids = Apartment::pluck('id')->toArray();
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 1; $i <= count($aparments_ids); $i++) {
             $address = new Address();
 
-            $address->apartment_id = Arr::random($aparments_ids);
+            $address->apartment_id = $i;
             $address->number = $faker->randomNumber(4, false);
             $address->street = 'via ' . $faker->sentence(2);
             $address->city = $faker->word();
