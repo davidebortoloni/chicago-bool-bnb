@@ -6,9 +6,9 @@
 
         <title>Laravel</title>
 
+        <link rel="stylesheet" href="{{asset("css/app.css")}}" type="text/css">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
         <!-- Styles -->
         <style>
             html, body {
@@ -64,7 +64,7 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+        <div class="">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
@@ -79,13 +79,12 @@
                 </div>
             @endif
 
-            <div class="content">
-                <div class="title m-b-md">
-                    BoolBnB - Sito in costruzione
-                </div>
-
-                
+            <div class="content">   
+                <div id="app"></div>  
             </div>
         </div>
+
+        <script src="{{asset("js/front.js")}}"></script>
     </body>
 </html>
+
