@@ -2,29 +2,21 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Support\Arr;
-use App\Models\Apartment;
+use App\Models\Service;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ApartmentController extends Controller
+class ServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(request $request)
+    public function index()
     {
-        if ($request) $city = $request->city;
-        // $city = 'quasi';
-        $apartments = Apartment::join('addresses', 'apartments.id', '=', 'addresses.apartment_id')
-            ->with('services')
-            ->with('sponsorships')
-            ->where('city', 'LIKE', "%$city%")
-            ->paginate(10)->toArray();
-
-        return response()->json($apartments);
+        $services = Service::all();
+        return response()->json($services);
     }
 
     /**
@@ -54,16 +46,9 @@ class ApartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Apartment $apartment)
+    public function show($id)
     {
-        $address = $apartment->address;
-        $services = $apartment->services;
-        $views = $apartment->views;
-        $total_views = 0;
-        foreach ($views as $view) {
-            $total_views = $total_views + $view->count;
-        }
-        return response()->json(['apartment' => $apartment, 'address' => $address, 'services' => $services, 'views' => $total_views]);
+        //
     }
 
     /**

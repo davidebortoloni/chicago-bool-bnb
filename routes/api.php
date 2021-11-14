@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('apartments', 'Api\ApartmentController');
+Route::get('services', 'Api\ServiceController@index');

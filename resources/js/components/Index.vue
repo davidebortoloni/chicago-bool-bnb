@@ -2,9 +2,7 @@
     <section>
         <Search class="mb-5" @search="getApartments" />
         <div class="row justify-content-center flex-wrap w-100">
-            <!-- <div v-for="(apartment, index) in apartments.data" :key="index"> 
-            {{ apartment.description }}
-        </div> -->
+
             <ApartmentCard
                 @click="showComponent()"
                 v-for="apartment in apartments.data"
@@ -30,7 +28,6 @@ export default {
         ApartmentCard,
         ApartmentShow,
     },
-    props: ["apartments"],
     data() {
         return {
             show: true,
@@ -38,18 +35,31 @@ export default {
             baseUri: "http://127.0.0.1:8000/api/apartments",
         };
     },
-    computed: {},
+    computed: {
+    },
     methods: {
-        getApartments(query) {
-            const params = {
-                params: {
-                    query,
-                },
-            };
-            axios.get(`${this.baseUri}`, params).then((res) => {
+        getApartments(search = ['', []]) {
+            const checkedServices = search[1];
+            axios.get(`${this.baseUri}?city=${search[0]}`).then((res) => {
                 this.apartments = res.data;
-                console.log(this.apartments);
-            });
+                const filteredApartments = [];
+                if (checkedServices.length || (beds >= 0 && beds < 10) || (rooms >= 0 && rooms < 10) ) {
+                    this.apartments.data.forEach(apartment => {
+                        let counter = 0;
+                        apartment.services.forEach((service) => {
+                            if(checkedServices.includes(service.name)) {
+                                counter++;
+                                if(!filteredApartments.includes(apartment) && counter == (checkedServices.length)) {
+                                    filteredApartments.push(apartment);
+                                }
+                            }
+                        })
+                    })
+                    this.apartments.data = filteredApartments;
+                }
+
+                }
+            )
         },
 
         setCurrentApartment(index) {
