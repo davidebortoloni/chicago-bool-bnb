@@ -1,8 +1,7 @@
 <template>
-    <section>
+    <section class="text-center">
         <Search class="mb-5" @search="getApartments" />
         <div class="row justify-content-center flex-wrap w-100">
-
             <ApartmentCard
                 @click="showComponent()"
                 v-for="apartment in apartments.data"
@@ -10,23 +9,20 @@
                 :apartment="apartment"
                 class="m-3"
             />
-            <ApartmentShow :class="show === false ? '' : 'd-none'" />
         </div>
     </section>
 </template>
 
 <script>
 import axios from "axios";
-import Search from "./Search.vue";
-import ApartmentCard from "./ApartmentCard.vue";
-import ApartmentShow from "./ApartmentShow.vue";
+import Search from "../apartments/Search.vue";
+import ApartmentCard from "../apartments/ApartmentCard.vue";
 
 export default {
     name: "Index",
     components: {
         Search,
         ApartmentCard,
-        ApartmentShow,
     },
     data() {
         return {
@@ -76,5 +72,3 @@ export default {
     },
 };
 </script>
-
-<style></style>

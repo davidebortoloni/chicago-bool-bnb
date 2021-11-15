@@ -3,6 +3,9 @@
 @section('content')
     <div class="container">
         <div class="row">
+            <div class="col-12">
+                <h1 class="text-capitalize">{{ $apartment->title }}</h1>
+            </div>
             <div class="col-12 col-md-6">
                 <figure>
                     <img src="{{ $apartment->image }}" alt="" class="img-fluid">
@@ -32,7 +35,7 @@
             <div class="col-12">
                 <a href="{{ route('admin.apartments.index') }}" class="btn btn-primary">Lista delle tue case</a>
                 <a href="{{ route('admin.apartments.edit', $apartment->id) }}" class="btn btn-warning">Modifica</a>
-                <form class="d-inline" action="{{ route('admin.apartments.destroy', $apartment->id) }}" method="POST">
+                <form class="d-inline delete-button" action="{{ route('admin.apartments.destroy', $apartment->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <input type="submit" value="Elimina" class="btn btn-danger">
@@ -40,4 +43,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+        <script src="{{ asset('js/confirm-delete.js') }}"></script>
 @endsection

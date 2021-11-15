@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -16,8 +17,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('admin.users.index', compact('users'));
+        $user_id = Auth::id();
+
+        if ($user_id == 1) {
+            $users = User::all();
+            return view('admin.users.index', compact('users'));
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
@@ -27,8 +34,14 @@ class UserController extends Controller
      */
     public function create()
     {
-        $user = new User();
-        return view('admin.users.create', compact('user'));
+        $user_id = Auth::id();
+
+        if ($user_id == 1) {
+            $user = new User();
+            return view('admin.users.create', compact('user'));
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
@@ -39,24 +52,30 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'email' => 'required|unique:users',
-            'name' => 'required',
-            'lastname' => 'required',
-            'birth_date' => 'required',
-        ], [
-            'required' => 'Il contenuto è obbligatorio',
-            'email.unique' => 'Email già in uso',
-        ]);
+        $user_id = Auth::id();
 
-        $data = $request->all();
+        if ($user_id == 1) {
+            $request->validate([
+                'email' => 'required|unique:users',
+                'name' => 'required',
+                'lastname' => 'required',
+                'birth_date' => 'required',
+            ], [
+                'required' => 'Il contenuto è obbligatorio',
+                'email.unique' => 'Email già in uso',
+            ]);
 
-        $user = new User();
-        $user->fill($data);
+            $data = $request->all();
 
-        $user->save();
+            $user = new User();
+            $user->fill($data);
 
-        return redirect()->route('admin.users.show', compact('user'));
+            $user->save();
+
+            return redirect()->route('admin.users.show', compact('user'));
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
@@ -67,7 +86,13 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('admin.users.show', compact('user'));
+        $user_id = Auth::id();
+
+        if ($user_id == 1) {
+            return view('admin.users.show', compact('user'));
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
@@ -78,7 +103,13 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.users.edit', compact('user'));
+        $user_id = Auth::id();
+
+        if ($user_id == 1 or $user_id == $user->id) {
+            return view('admin.users.edit', compact('user'));
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
@@ -90,12 +121,18 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $data = $request->all();
+        $user_id = Auth::id();
 
-        $data = $request->all();
-        $user->update($data);
+        if ($user_id == 1 or $user_id == $user->id) {
+            $data = $request->all();
 
-        return redirect()->route('admin.users.show', compact('user'));
+            $data = $request->all();
+            $user->update($data);
+
+            return redirect()->route('admin.users.show', compact('user'));
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
@@ -106,7 +143,13 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
-        return redirect()->route('admin.users.index')->with('alert-message', 'Utente eliminato con successo.')->with('alert-type', 'success');
+        $user_id = Auth::id();
+
+        if ($user_id == 1) {
+            $user->delete();
+            return redirect()->route('admin.users.index')->with('alert-message', 'Utente eliminato con successo.')->with('alert-type', 'success');
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 }

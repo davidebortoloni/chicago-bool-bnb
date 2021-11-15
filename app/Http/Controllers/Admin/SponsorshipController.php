@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Sponsorship;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class SponsorshipController extends Controller
@@ -16,9 +17,14 @@ class SponsorshipController extends Controller
      */
     public function index()
     {
-        $sponsorships = Sponsorship::all();
+        $user_id = Auth::id();
 
-        return view('admin.sponsorships.index', compact('sponsorships'));
+        if ($user_id == 1) {
+            $sponsorships = Sponsorship::all();
+            return view('admin.sponsorships.index', compact('sponsorships'));
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
@@ -28,7 +34,13 @@ class SponsorshipController extends Controller
      */
     public function create()
     {
-        return view('admin.sponsorships.create');
+        $user_id = Auth::id();
+
+        if ($user_id == 1) {
+            return view('admin.sponsorships.create');
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
@@ -39,23 +51,29 @@ class SponsorshipController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|unique:sponsorships|max:50',
-            'duration' => 'required|numeric',
-            'price' => 'required|numeric',
-        ], [
-            'required' => 'Il contenuto è obbligatorio',
-            'name.unique' => 'Il nome già esiste',
-            'name.max' => 'Il numero massimo di caratteri per il nome è :max',
-            'numeric' => 'Il contenuto deve essere un numero',
-        ]);
+        $user_id = Auth::id();
 
-        $data = $request->all();
-        $sponsorship = new Sponsorship();
-        $sponsorship->fill($data);
-        $sponsorship->save();
+        if ($user_id == 1) {
+            $request->validate([
+                'name' => 'required|unique:sponsorships|max:50',
+                'duration' => 'required|numeric',
+                'price' => 'required|numeric',
+            ], [
+                'required' => 'Il contenuto è obbligatorio',
+                'name.unique' => 'Il nome già esiste',
+                'name.max' => 'Il numero massimo di caratteri per il nome è :max',
+                'numeric' => 'Il contenuto deve essere un numero',
+            ]);
 
-        return redirect()->route('admin.sponsorships.show', $sponsorship->id);
+            $data = $request->all();
+            $sponsorship = new Sponsorship();
+            $sponsorship->fill($data);
+            $sponsorship->save();
+
+            return redirect()->route('admin.sponsorships.show', $sponsorship->id);
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
@@ -66,7 +84,13 @@ class SponsorshipController extends Controller
      */
     public function show(Sponsorship $sponsorship)
     {
-        return view('admin.sponsorships.show', compact('sponsorship'));
+        $user_id = Auth::id();
+
+        if ($user_id == 1) {
+            return view('admin.sponsorships.show', compact('sponsorship'));
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
@@ -77,7 +101,13 @@ class SponsorshipController extends Controller
      */
     public function edit(Sponsorship $sponsorship)
     {
-        return view('admin.sponsorships.edit', compact('sponsorship'));
+        $user_id = Auth::id();
+
+        if ($user_id == 1) {
+            return view('admin.sponsorships.edit', compact('sponsorship'));
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
@@ -89,23 +119,29 @@ class SponsorshipController extends Controller
      */
     public function update(Request $request, Sponsorship $sponsorship)
     {
-        $request->validate([
-            'name' => ['required', Rule::unique('sponsorships')->ignore($sponsorship->id), 'max:50'],
-            'duration' => 'required|numeric',
-            'price' => 'required|numeric',
-        ], [
-            'required' => 'Il contenuto è obbligatorio',
-            'name.unique' => 'Il nome già esiste',
-            'name.max' => 'Il numero massimo di caratteri per il nome è :max',
-            'numeric' => 'Il contenuto deve essere un numero',
-        ]);
+        $user_id = Auth::id();
 
-        $data = $request->all();
-        $sponsorship->update($data);
+        if ($user_id == 1) {
+            $request->validate([
+                'name' => ['required', Rule::unique('sponsorships')->ignore($sponsorship->id), 'max:50'],
+                'duration' => 'required|numeric',
+                'price' => 'required|numeric',
+            ], [
+                'required' => 'Il contenuto è obbligatorio',
+                'name.unique' => 'Il nome già esiste',
+                'name.max' => 'Il numero massimo di caratteri per il nome è :max',
+                'numeric' => 'Il contenuto deve essere un numero',
+            ]);
+
+            $data = $request->all();
+            $sponsorship->update($data);
 
 
-        // return redirect()->route('admin.sponsorships.show', $sponsorship->id);
-        return redirect()->route('admin.sponsorships.index');
+            // return redirect()->route('admin.sponsorships.show', $sponsorship->id);
+            return redirect()->route('admin.sponsorships.index');
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
@@ -116,8 +152,14 @@ class SponsorshipController extends Controller
      */
     public function destroy(Sponsorship $sponsorship)
     {
-        $sponsorship->delete();
+        $user_id = Auth::id();
 
-        return redirect()->route('admin.sponsorships.index')->with('alert-message', 'Sponsorizzazione eliminata con successo.')->with('alert-type', 'success');
+        if ($user_id == 1) {
+            $sponsorship->delete();
+
+            return redirect()->route('admin.sponsorships.index')->with('alert-message', 'Sponsorizzazione eliminata con successo.')->with('alert-type', 'success');
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 }

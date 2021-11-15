@@ -2,6 +2,10 @@
 
 @section('content')
     <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1>Modifica casa</h1>
+            <a href="{{ route('admin.apartments.index') }}" class="btn btn-secondary">Indietro</a>
+        </div>
         <form method="post" action="{{ route('admin.apartments.update', $apartment->id) }}" enctype="multipart/form-data">
             @method('PATCH')
             @csrf

@@ -17,10 +17,8 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes(['register' => false]);
 
-Route::get('/', 'HomeController@index')->name('guest.home');
-
 Route::middleware('auth')->name('admin.')->prefix('admin')->namespace('Admin')->group(function () {
-    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('/', 'DashboardController@index')->name('dashboard');
     Route::resource('apartments', 'ApartmentController');
     Route::resource('sponsorships', 'SponsorshipController');
     Route::resource('services', 'ServiceController');

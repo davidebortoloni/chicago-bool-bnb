@@ -29,7 +29,7 @@
                                     disponibili)</li>
                             </ul>
                             <a href="{{ route('admin.apartments.index') }}" class="btn btn-secondary">Le tue case</a>
-                            <a href="#" class="btn btn-secondary disabled">Modifica i tuoi dati</a>
+                            <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-secondary">Modifica i tuoi dati</a>
                         @endif
                     </div>
                 </div>

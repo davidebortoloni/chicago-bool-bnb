@@ -9,7 +9,7 @@
         <div class="d-flex justify-content-end">
             <a href="{{ route('admin.sponsorships.index') }}" class="btn btn-primary">Lista sponsorizzazioni</a>
             <a href="{{ route('admin.sponsorships.edit', $sponsorship->id) }}" class="btn btn-secondary mx-2">Modifica</a>
-            <form action="{{ route('admin.sponsorships.destroy', $sponsorship->id) }}" method="POST">
+            <form class="delete-button" action="{{ route('admin.sponsorships.destroy', $sponsorship->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-warning">Cancella</button>
@@ -17,4 +17,8 @@
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+        <script src="{{ asset('js/confirm-delete.js') }}"></script>
 @endsection

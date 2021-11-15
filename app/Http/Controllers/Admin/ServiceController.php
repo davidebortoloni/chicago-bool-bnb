@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Service;
-
+use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
@@ -17,8 +17,14 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::all();
-        return view('admin.services.index', compact('services'));
+        $user_id = Auth::id();
+
+        if ($user_id == 1) {
+            $services = Service::all();
+            return view('admin.services.index', compact('services'));
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
@@ -28,8 +34,14 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $service = new Service();
-        return view('admin.services.create', compact('service'));
+        $user_id = Auth::id();
+
+        if ($user_id == 1) {
+            $service = new Service();
+            return view('admin.services.create', compact('service'));
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
@@ -40,14 +52,20 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        $user_id = Auth::id();
 
-        $service = new Service();
-        $service->fill($data);
+        if ($user_id == 1) {
+            $data = $request->all();
 
-        $service->save();
+            $service = new Service();
+            $service->fill($data);
 
-        return redirect()->route('admin.services.show', compact('service'));
+            $service->save();
+
+            return redirect()->route('admin.services.show', compact('service'));
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
@@ -58,7 +76,13 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        return view('admin.services.show', compact('service'));
+        $user_id = Auth::id();
+
+        if ($user_id == 1) {
+            return view('admin.services.show', compact('service'));
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
@@ -69,7 +93,13 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        return view('admin.services.edit', compact('service'));
+        $user_id = Auth::id();
+
+        if ($user_id == 1) {
+            return view('admin.services.edit', compact('service'));
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
@@ -81,13 +111,19 @@ class ServiceController extends Controller
      */
     public function update(Request $request, Service $service)
     {
-        $data = $request->all();
+        $user_id = Auth::id();
 
-        $data = $request->all();
-        $service->update($data);
+        if ($user_id == 1) {
+            $data = $request->all();
 
-        // return redirect()->route('admin.services.show', compact('service'));
-        return redirect()->route('admin.services.index');
+            $data = $request->all();
+            $service->update($data);
+
+            // return redirect()->route('admin.services.show', compact('service'));
+            return redirect()->route('admin.services.index');
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
@@ -98,7 +134,13 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        $service->delete();
-        return redirect()->route('admin.services.index')->with('alert-message', 'Servizio eliminato con successo.')->with('alert-type', 'success');
+        $user_id = Auth::id();
+
+        if ($user_id == 1) {
+            $service->delete();
+            return redirect()->route('admin.services.index')->with('alert-message', 'Servizio eliminato con successo.')->with('alert-type', 'success');
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 }

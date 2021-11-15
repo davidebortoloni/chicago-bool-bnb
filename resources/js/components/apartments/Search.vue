@@ -1,7 +1,7 @@
 <template>
     <section>
         <section>
-            <h1 class="mt-5">BoolBnB</h1>
+            <h1 class="mt-5">Benvenuto su BoolBnb</h1>
             <div class="container">
                 <div class="row mt-5">
                     <div class="col-9">

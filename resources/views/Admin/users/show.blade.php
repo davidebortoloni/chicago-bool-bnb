@@ -10,13 +10,17 @@
 
         <div class="d-flex justify-content-end">
             <a href="{{ route('admin.users.index') }}" class="btn btn-primary">Lista utenti</a>
-            <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-secondary mx-2">Modifica</a>
-            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
+            <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning mx-2">Modifica</a>
+            <form class="delete-button" action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-warning">Cancella</button>
+                <button type="submit" class="btn btn-danger">Cancella</button>
             </form>
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+        <script src="{{ asset('js/confirm-delete.js') }}"></script>
 @endsection
