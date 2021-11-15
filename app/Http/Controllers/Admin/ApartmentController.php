@@ -121,7 +121,13 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        return view('admin.apartments.show', compact('apartment'));
+        $user_id = Auth::id();
+
+        if ($user_id == 1 or $user_id == $apartment->user_id) {
+            return view('admin.apartments.show', compact('apartment'));
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
@@ -132,15 +138,21 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        $services = Service::all();
+        $user_id = Auth::id();
 
-        //recupero id del post che voglio editare
-        $service_ids = $apartment->services->pluck('id')->toArray();
+        if ($user_id == 1 or $user_id == $apartment->user_id) {
+            $services = Service::all();
 
-        // recupero indirizzo dell'appartamento
-        $address = $apartment->address;
+            //recupero id del post che voglio editare
+            $service_ids = $apartment->services->pluck('id')->toArray();
 
-        return view('admin.apartments.edit', compact('services', 'apartment', 'service_ids', 'address'));
+            // recupero indirizzo dell'appartamento
+            $address = $apartment->address;
+
+            return view('admin.apartments.edit', compact('services', 'apartment', 'service_ids', 'address'));
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
     }
 
     /**
