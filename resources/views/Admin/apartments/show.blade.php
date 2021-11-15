@@ -17,12 +17,7 @@
                     <div>Proprietario: <strong>{{$apartment->user->name}} {{$apartment->user->lastname}}</strong></div>
                 @endif
                 <div id="address">
-                    Indirizzo: 
-                    @if ($apartment->address)
-                        <strong>{{$apartment->address->street}}, {{$apartment->address->number}}. {{$apartment->address->cap}} {{$apartment->address->city}}, {{$apartment->address->province}} {{$apartment->address->region}}</strong>
-                    @else
-                        <strong> - </strong>
-                    @endif
+                    Indirizzo: <strong>{{$apartment->address->street}}, {{$apartment->address->number}}. {{$apartment->address->cap}} {{$apartment->address->city}}, {{$apartment->address->province}} {{$apartment->address->region}}</strong>
                 </div>  
                 <div id="info" class="d-flex justify-content-between align-items-center">
                     <div>Numero stanze: <strong>{{$apartment->n_rooms}}</strong></div>

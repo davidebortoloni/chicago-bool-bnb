@@ -13,11 +13,23 @@
                         <p>{{ apartment.apartment.description }}</p>
                     </div>
                     <div class="col-12">
+                        <div id="address">
+                            <strong>
+                                {{ apartment.apartment.address.street }},
+                                {{ apartment.apartment.address.number }},
+                                {{ apartment.apartment.address.cap }}
+                                <span class="text-capitalize">{{ apartment.apartment.address.city }},</span>
+                                <span class="text-capitalize">{{ apartment.apartment.address.province}}</span>
+                                <span class="text-capitalize">{{ apartment.apartment.address.region}}</span>
+                            </strong>
+                        </div>  
+                    </div>
+                    <div class="col-12">
                         <div id="info" class="d-flex justify-content-between align-items-center my-3">
-                            <div>Numero stanze: <strong>{{apartment.apartment.n_rooms}}</strong></div>
-                            <div>Numero letti: <strong>{{apartment.apartment.n_beds}}</strong></div>
-                            <div>Numero bagni: <strong>{{apartment.apartment.n_baths}}</strong></div>
-                            <div>Metri quadri: <strong>{{apartment.apartment.sqrmt}}</strong></div>
+                            <div>Numero stanze: <strong>{{ apartment.apartment.n_rooms }}</strong></div>
+                            <div>Numero letti: <strong>{{ apartment.apartment.n_beds }}</strong></div>
+                            <div>Numero bagni: <strong>{{ apartment.apartment.n_baths }}</strong></div>
+                            <div>Metri quadri: <strong>{{ apartment.apartment.sqrmt }}</strong></div>
                         </div>
                     </div>
                     <div class="col-12">

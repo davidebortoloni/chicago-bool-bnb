@@ -6,7 +6,7 @@
             </figure>
             <h3 class="text-capitalize">{{ apartment.title }}</h3>
             <ul class="rooms">
-                <li class="mr-2">Città: {{ apartment.city }}</li>
+                <li class="mr-2 text-capitalize">Città: {{ apartment.city }}</li>
                 <li class="mr-2">Camere: {{ apartment.n_rooms }}</li>
                 <li class="mr-2">Letti: {{ apartment.n_beds }}</li>
                 <li class="mr-2">Bagni: {{ apartment.n_baths }}</li>
