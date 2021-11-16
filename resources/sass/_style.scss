@@ -1,0 +1,27 @@
+// search bar
+.advanced-search {
+    select {
+        max-height: 20px;
+    }
+}
+
+.search {
+    .btn-src {
+        max-height: 37px;
+    }
+}
+
+// apartment card (homepage)
+.apartment-card {
+    max-width: 500px;
+}
+
+.rooms {
+    text-align: left;
+    padding: 0;
+    li {
+        display: inline-block;
+    }
+}
+
+// apartment show
