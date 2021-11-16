@@ -77,7 +77,7 @@
                     </div>
                     </div> -->
 
-                    <div class="col-12 p-0">
+                    <div class="col-12 p-0 services">
                         <ul
                             class="d-flex flex-wrap justify-content-between p-0"
                             id="services-list"

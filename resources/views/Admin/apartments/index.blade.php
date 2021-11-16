@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container m-md-0">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h1>Le tue case</h1>
     <a class="btn btn-info" href="{{ route('admin.apartments.create') }}">Inserisci casa</a>
@@ -37,13 +37,18 @@
         <td>{{$apartment->sqrmt}}</td>
         <td>@if ($apartment->visibility) Disponibile @else Non disponibile @endif</td>
         <td class="d-flex justify-content-end">
-          <a href="{{ route('admin.apartments.show', $apartment->id) }}" class="btn btn-primary">Vedi</a>
-          <a href="{{ route('admin.apartments.edit', $apartment->id) }}" class="btn btn-warning mx-2">Modifica</a>
-          <form class="d-inline delete-button" action="{{ route('admin.apartments.destroy', $apartment->id) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <input type="submit" value="Elimina" class="btn btn-danger">
-          </form>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a href="{{ route('admin.apartments.show', $apartment->id) }}" class="btn btn-primary">Vedi</a>
+            <a href="{{ route('admin.apartments.edit', $apartment->id) }}" class="btn btn-warning mx-2">Modifica</a>
+            <form class="d-inline delete-button" action="{{ route('admin.apartments.destroy', $apartment->id) }}" method="POST">
+              @csrf
+              @method('DELETE')
+              <input type="submit" value="Elimina" class="btn btn-danger">
+            </form>
+          </div>
         </td>
       </tr>
       @empty
