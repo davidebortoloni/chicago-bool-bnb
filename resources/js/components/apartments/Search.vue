@@ -1,10 +1,9 @@
 <template>
     <section>
-        <section>
-            <h1 class="mt-5">Benvenuto su BoolBnb</h1>
+        <section class="search">
             <div class="container">
                 <div class="row mt-5">
-                    <div class="col-9">
+                    <div class="col-12 col-xl-9 mb-3">
                         <input
                             type="text"
                             class="form-control search-bar"
@@ -15,10 +14,11 @@
                     </div>
                     <div
                         class="
-                            col-2
+                            col-6 col-xl-2
                             d-flex
                             align-items-center
                             justify-content-center
+                            mb-3
                         "
                     >
                         <button
@@ -29,10 +29,17 @@
                             Ricerca avanzata
                         </button>
                     </div>
-                    <div class="col-1">
+                    <div
+                        class="
+                            col-6 col-xl-1
+                            d-flex
+                            justify-content-center
+                            mb-3
+                        "
+                    >
                         <button
                             type="button"
-                            class="btn btn-success"
+                            class="btn btn-success btn-src"
                             @click="emitSearch()"
                         >
                             Cerca
@@ -48,7 +55,7 @@
         >
             <div class="container">
                 <div class="row">
-                <!-- <div class="col-2">
+                    <!-- <div class="col-2">
                     <div class="d-flex">
                         <label for="n_beds">Letti:</label>
                         <select v-model="beds" name="n_beds" id="n_beds" class="mx-2">
@@ -70,11 +77,21 @@
                     </div>
                     </div> -->
 
-                    <div class="col">
-                        <ul class="d-flex flex-wrap" id="services-list">
-                            <li v-for="service in services" :key="service.id" class="d-flex justify-content-between aling-items-center mx-3">
-                                <label :for="service.name" class="mr-2">{{service.name}}</label>
-                                <input v-model="checkedServices"
+                    <div class="col-12 p-0">
+                        <ul
+                            class="d-flex flex-wrap justify-content-between p-0"
+                            id="services-list"
+                        >
+                            <li
+                                v-for="service in services"
+                                :key="service.id"
+                                class="d-flex aling-items-center mx-2"
+                            >
+                                <label :for="service.name" class="mr-2">{{
+                                    service.name
+                                }}</label>
+                                <input
+                                    v-model="checkedServices"
                                     type="checkbox"
                                     :name="service.name"
                                     :id="service.name"
@@ -98,10 +115,10 @@ export default {
             show: true,
             searchInput: "",
             services: [],
-            baseUri: 'http://127.0.0.1:8000/api/services',
-            checkedServices:[],
-            beds:0,
-            rooms:0,
+            baseUri: "http://127.0.0.1:8000/api/services",
+            checkedServices: [],
+            beds: 0,
+            rooms: 0,
         };
     },
 
@@ -110,25 +127,30 @@ export default {
             return (this.show = !this.show);
         },
         emitSearch() {
-            this.$emit("search", [this.searchInput, this.checkedServices, this.beds, this.rooms]);
+            this.$emit("search", [
+                this.searchInput,
+                this.checkedServices,
+                this.beds,
+                this.rooms,
+            ]);
         },
         getServices() {
-            axios.get(`${this.baseUri}`).then(res => {
+            axios.get(`${this.baseUri}`).then((res) => {
                 this.services = res.data;
-            })
-        }
+            });
+        },
     },
-    created(){
-        this.getServices()
-    }
+    created() {
+        this.getServices();
+    },
 };
 </script>
 
 <style lang="scss" scoped>
-    #services-list{
-        input{
-            position: relative;
-            top: 5px;
-        }
+#services-list {
+    input {
+        position: relative;
+        top: 5px;
     }
+}
 </style>
