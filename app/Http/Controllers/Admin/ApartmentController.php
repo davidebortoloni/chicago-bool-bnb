@@ -26,9 +26,9 @@ class ApartmentController extends Controller
         $user_id = Auth::id();
 
         if ($user_id == 1) {
-            $apartments = Apartment::all();
+            $apartments = Apartment::paginate(10);
         } else {
-            $apartments = Apartment::where('user_id', $user_id)->get();
+            $apartments = Apartment::where('user_id', $user_id)->paginate(10);
         }
 
         return view('admin.apartments.index', compact('apartments'));
