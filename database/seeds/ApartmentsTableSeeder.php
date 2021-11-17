@@ -26,7 +26,7 @@ class ApartmentsTableSeeder extends Seeder
                 'n_beds' => '2',
                 'n_baths' => '1',
                 'sqrmt' => '70',
-                'image' => 'http://127.0.0.1:8000/storage/apartment_images/house1.jpg',
+                'image' => 'http://127.0.0.1:8000/storage/apartment_images/house0.jpg',
             ],
             [
                 'title' => 'Tiny & cozy mini apartment',
