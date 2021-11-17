@@ -134,7 +134,7 @@ class ApartmentsTableSeeder extends Seeder
                 'n_beds' => '1',
                 'n_baths' => '1',
                 'sqrmt' => '55',
-                'image' => 'http://127.0.0.1:8000/storage/apartment_images/house13.jpeg'
+                'image' => 'http://127.0.0.1:8000/storage/apartment_images/house13.jpg'
             ],
             [
                 'title' => 'Bilocale centrale vicino alla stazione',
