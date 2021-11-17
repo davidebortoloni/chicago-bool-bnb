@@ -57,13 +57,14 @@ class ApartmentController extends Controller
     {
         $request->validate(
             [
+                'title' => 'required|string',
                 'description' => 'required|string|min:10',
                 'n_rooms' => 'required|numeric|min:1',
                 'n_beds' => 'required|numeric|min:1',
                 'n_baths' => 'required|numeric|min:1',
                 'sqrmt' => 'required|numeric|min:1',
                 'image' => 'required|image',
-                'services' => 'nullable|exists:tags,id',
+                'services' => 'nullable|exists:services,id',
                 'street' => 'required|string',
                 'number' => 'required|numeric',
                 'cap' => 'required|numeric',
@@ -166,12 +167,13 @@ class ApartmentController extends Controller
     {
         $request->validate(
             [
+                'title' => 'required|string',
                 'description' => 'required|string|min:10',
                 'n_rooms' => 'required|numeric|min:1',
                 'n_beds' => 'required|numeric|min:1',
                 'n_baths' => 'required|numeric|min:1',
                 'image' => 'nullable|image',
-                'services' => 'nullable|exists:tags,id',
+                'services' => 'nullable|exists:services,id',
                 'street' => 'required|string',
                 'number' => 'required|numeric',
                 'cap' => 'required|numeric',
@@ -182,6 +184,8 @@ class ApartmentController extends Controller
         );
 
         $data = $request->all();
+
+        if (!array_key_exists('visibility', $data)) $data['visibility'] = 0;
 
         if (!array_key_exists('services', $data) && $apartment->services) $apartment->services()->detach();
         else $apartment->services()->sync($data['services']);
