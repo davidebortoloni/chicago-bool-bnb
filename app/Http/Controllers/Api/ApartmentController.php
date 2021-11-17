@@ -16,13 +16,48 @@ class ApartmentController extends Controller
      */
     public function index(request $request)
     {
-        if ($request) $city = $request->city;
-        // $city = 'quasi';
-        $apartments = Apartment::join('addresses', 'apartments.id', '=', 'addresses.apartment_id')
-            ->with('services')
-            ->with('sponsorships')
-            ->where('city', 'LIKE', "%$city%")
-            ->paginate(10)->toArray();
+        if ($request->lat && $request->lon && $request->distance) {
+            $lat = $request->lat;
+            $lon = $request->lon;
+            $distance = $request->distance;
+
+            switch ($distance) {
+                case '5':
+                    $range = 0.024;
+                    break;
+                case '10':
+                    $range = 0.048;
+                    break;
+                case '20':
+                    $range = 0.092;
+                    break;
+                case '50':
+                    $range = 0.048 * 5;
+                    break;
+                default:
+                    $range = 0.048;
+            }
+            $min_lat = $lat - $range;
+            $max_lat = $lat + $range;
+            $min_lon = $lon - $range;
+            $max_lon = $lon + $range;
+            // $city = 'quasi';
+            $apartments = Apartment::join('addresses', 'apartments.id', '=', 'addresses.apartment_id')
+                ->with('services')
+                ->with('sponsorships')
+                ->where([
+                    ['lat', '>', $min_lat],
+                    ['lat', '<', $max_lat],
+                    ['lon', '>', $min_lon],
+                    ['lon', '<', $max_lon]
+                ])
+                ->paginate(10)->toArray();
+        } else {
+            $apartments = Apartment::join('addresses', 'apartments.id', '=', 'addresses.apartment_id')
+                ->with('services')
+                ->with('sponsorships')
+                ->paginate(10)->toArray();
+        }
 
         return response()->json($apartments);
     }
