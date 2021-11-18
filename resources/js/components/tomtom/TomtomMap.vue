@@ -8,24 +8,25 @@
 <script>
 export default {
     name: "TomtomMap",
+    props: ['lat', 'lon', 'street'],
     methods: {
         addMarker(map) {
             const tt = window.tt;
-            var location = [12.507088, 41.875983];
+            var location = [this.lat, this.lon];
             var popupOffset = 25;
 
             var marker = new tt.Marker().setLngLat(location).addTo(map);
             var popup = new tt.Popup({ offset: popupOffset }).setHTML(
-                 "Via Roma"
+                 this.street
              );
             marker.setPopup(popup).togglePopup();
         },
-            test() {
+            addMap() {
             const tt = window.tt;
             var map = tt.map({
                 key: "DZpdDftAOlPmZZ5gbjHUVdd43CUnr2NZ",
                 container: this.$refs.mapRef,
-                center : [12.507088, 41.875983],
+                center : [this.lat, this.lon],
                 zoom: 13,
             });
             map.addControl(new tt.FullscreenControl());
@@ -37,7 +38,7 @@ export default {
         },
     },
     mounted(){
-    this.test()
+    this.addMap()
  },
 }
 </script>
@@ -45,6 +46,6 @@ export default {
 <style>
 #map {
     height: 50vh;
-    width: 50vw;
+    width: 40vw;
 }
 </style>

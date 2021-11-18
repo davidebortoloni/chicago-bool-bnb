@@ -85,7 +85,7 @@
                 </div>
             </div>
             <div class="col-6">
-                <TomtomMap />
+                <TomtomMap :lat='apartment.address.lat' :lon='apartment.address.lon' :street='apartment.address.street'/>
             </div>
 
         </div>
