@@ -23,24 +23,29 @@ class ApartmentController extends Controller
 
             switch ($distance) {
                 case '5':
-                    $range = 0.024;
+                    $range_lat = (1 / 111) * 5;
+                    $range_lon = (1 / 85) * 5;
                     break;
                 case '10':
-                    $range = 0.048;
+                    $range_lat = (1 / 111) * 10;
+                    $range_lon = (1 / 85) * 10;
                     break;
                 case '20':
-                    $range = 0.092;
+                    $range_lat = (1 / 111) * 20;
+                    $range_lon = (1 / 85) * 20;
                     break;
                 case '50':
-                    $range = 0.048 * 5;
+                    $range_lat = (1 / 111) * 50;
+                    $range_lon = (1 / 85) * 50;
                     break;
                 default:
-                    $range = 0.048;
+                    $range_lat = (1 / 111) * 10;
+                    $range_lon = (1 / 85) * 10;
             }
-            $min_lat = $lat - $range;
-            $max_lat = $lat + $range;
-            $min_lon = $lon - $range;
-            $max_lon = $lon + $range;
+            $min_lat = $lat - $range_lat;
+            $max_lat = $lat + $range_lat;
+            $min_lon = $lon - $range_lon;
+            $max_lon = $lon + $range_lon;
             // $city = 'quasi';
             $apartments = Apartment::join('addresses', 'apartments.id', '=', 'addresses.apartment_id')
                 ->with('services')
