@@ -1,7 +1,8 @@
 <template>
-    <section class="text-center">
-        <Search class="mb-5" @search="getApartments" />
-        <div class="row justify-content-center flex-wrap w-100">
+    <section class="">
+        <h1 class="mt-5 text-center">Benvenuto su BoolBnb</h1>
+        <Search class="mb-2" @search="getApartments" />
+        <div class="row justify-content-center flex-wrap w-100 m-0">
             <ApartmentCard
                 @click="showComponent()"
                 v-for="apartment in apartments.data"
@@ -31,31 +32,35 @@ export default {
             baseUri: "http://127.0.0.1:8000/api/apartments",
         };
     },
-    computed: {
-    },
+    computed: {},
     methods: {
-        getApartments(search = ['', []]) {
+        getApartments(search = ["", []]) {
             const checkedServices = search[1];
             axios.get(`${this.baseUri}?city=${search[0]}`).then((res) => {
                 this.apartments = res.data;
                 const filteredApartments = [];
-                if (checkedServices.length || (beds >= 0 && beds < 10) || (rooms >= 0 && rooms < 10) ) {
-                    this.apartments.data.forEach(apartment => {
+                if (
+                    checkedServices.length ||
+                    (beds >= 0 && beds < 10) ||
+                    (rooms >= 0 && rooms < 10)
+                ) {
+                    this.apartments.data.forEach((apartment) => {
                         let counter = 0;
                         apartment.services.forEach((service) => {
-                            if(checkedServices.includes(service.name)) {
+                            if (checkedServices.includes(service.name)) {
                                 counter++;
-                                if(!filteredApartments.includes(apartment) && counter == (checkedServices.length)) {
+                                if (
+                                    !filteredApartments.includes(apartment) &&
+                                    counter == checkedServices.length
+                                ) {
                                     filteredApartments.push(apartment);
                                 }
                             }
-                        })
-                    })
+                        });
+                    });
                     this.apartments.data = filteredApartments;
                 }
-
-                }
-            )
+            });
         },
 
         setCurrentApartment(index) {

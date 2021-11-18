@@ -22,7 +22,7 @@
                     <th scope="col">Nome</th>
                     <th scope="col">Cognome</th>
                     <th scope="col">Email</th>
-                    <th scope="col"></th>
+                    <th scope="col">Azioni</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,15 +32,21 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->lastname }}</td>
                         <td>{{ $user->email }}</td>
-                        <td class="d-flex justify-content-end">
-                            <a href="{{ route('admin.users.show', $user->id) }}" class="btn btn-primary">Vai</a>
+                        <td class="">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a href="{{ route('admin.users.show', $user->id) }}" class="dropdown-item">Vai</a>
                             <a href="{{ route('admin.users.edit', $user->id) }}"
-                                class="btn btn-warning mx-2">Modifica</a>
+                            class="dropdown-item">Modifica</a>
                             <form class="delete-button" action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Cancella</button>
+                                <button type="submit" class="dropdown-item">Cancella</button>
                             </form>
+                            </div>
+                            </div>
                         </td>
                     </tr>
                 @empty

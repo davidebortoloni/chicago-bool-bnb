@@ -19,10 +19,10 @@
         <th scope="col">Proprietario</th>
         @endif
         <th scope="col">Nome casa</th>
-        <th scope="col">Stanze</th>
-        <th scope="col">MQ</th>
+        <th scope="col" class="d-none d-md-table-cell">Stanze</th>
+        <th scope="col" class="d-none d-md-table-cell">MQ</th>
         <th scope="col">Disponibilità</th>
-        <th scope="col"></th>
+        <th scope="col">Azioni</th>
       </tr>
     </thead>
     <tbody>
@@ -33,17 +33,24 @@
         <td>{{$apartment->user->name}} {{$apartment->user->lastname}}</td>
         @endif
         <td class="text-capitalize">{{$apartment->title}}</td>
-        <td>{{$apartment->n_rooms}}</td>
-        <td>{{$apartment->sqrmt}}</td>
+        <td class="d-none d-md-table-cell">{{$apartment->n_rooms}}</td>
+        <td class="d-none d-md-table-cell">{{$apartment->sqrmt}}</td>
         <td>@if ($apartment->visibility) Disponibile @else Non disponibile @endif</td>
-        <td class="d-flex justify-content-end">
-          <a href="{{ route('admin.apartments.show', $apartment->id) }}" class="btn btn-primary">Vedi</a>
-          <a href="{{ route('admin.apartments.edit', $apartment->id) }}" class="btn btn-warning mx-2">Modifica</a>
-          <form class="d-inline delete-button" action="{{ route('admin.apartments.destroy', $apartment->id) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <input type="submit" value="Elimina" class="btn btn-danger">
-          </form>
+        <td class="">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a href="{{ route('admin.apartments.show', $apartment->id) }}" class="dropdown-item">Vedi</a>
+              <a href="{{ route('admin.apartments.edit', $apartment->id) }}" class=" dropdown-item">Modifica</a>
+            <form class="d-inline delete-button" action="{{ route('admin.apartments.destroy', $apartment->id) }}" method="POST">
+              @csrf
+              @method('DELETE')
+              <input type="submit" value="Elimina" class="dropdown-item">
+            </form>
+            </div>
+          </div>
+            
         </td>
       </tr>
       @empty
