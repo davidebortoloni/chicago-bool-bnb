@@ -5,6 +5,13 @@
         <form method="POST" action="{{ route('admin.apartments.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
+                <label for="title" class="h5">Titolo</label>
+                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title', '') }}">
+                @error('title')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-group">
                 <label for="description" class="h5">Descrizione casa</label>
                 <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="8">{{ old('description', '') }}</textarea>
                 @error('description')
@@ -97,8 +104,8 @@
             <div class="h5">Servizi</div>  
             @foreach($services as $service)
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="service-{{$service->id}}" value="{{$service->id}}">
-                <label class="form-check-label" name="{{$service->name}}" for="service-{{$service->id}}">{{$service->name}}</label>
+                <input class="form-check-input" type="checkbox" id="service-{{$service->id}}" value="{{$service->id}}" name="services[]" @if(in_array($service->id, old('services', []))) checked @endif>
+                <label class="form-check-label" for="service-{{$service->id}}">{{$service->name}}</label>
               </div>
               @endforeach
             <div class="form-check mt-3">
