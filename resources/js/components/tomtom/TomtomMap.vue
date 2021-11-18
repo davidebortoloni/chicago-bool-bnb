@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h1>Vue 3 TomTom Maps Demo</h1>
         <div id="map" ref="mapRef"></div>
     </div>
 </template>
