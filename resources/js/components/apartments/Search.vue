@@ -55,29 +55,16 @@
         >
             <div class="container">
                 <div class="row">
-                    <!-- <div class="col-2">
-                    <div class="d-flex">
-                        <label for="n_beds">Letti:</label>
-                        <select v-model="beds" name="n_beds" id="n_beds" class="mx-2">
-                            <option value="0"></option>
-                            <option  v-for="n in 10" :key="n" :value="n">
-                                {{ n }}
-                            </option>
-                        </select>
+                <div class="col-2 d-flex justify-content-between form-group">
+                    <label for="distance">Distanza</label>
+                    <select name="distance" class="form-control ml-2" v-model="range" id="distance">
+                        <option value="5">5 km</option>
+                        <option value="10">10 km</option>
+                        <option value="20">20 km</option>
+                        <option value="50">50 km</option>
+                    </select>
                     </div>
-
-                    <div class="d-flex ">
-                        <label for="rooms">Stanze:</label>
-                        <select v-model="rooms" name="rooms" id="rooms" class="mx-2">
-                            <option value=""></option>
-                            <option  v-for="n in 10" :key="n" :value="n">
-                                {{ n }}
-                            </option>
-                        </select>
-                    </div>
-                    </div> -->
-
-                    <div class="col-12 p-0 services">
+                    <div class="col-10 p-0 services">
                         <ul
                             class="d-flex flex-wrap justify-content-between p-0"
                             id="services-list"
@@ -92,6 +79,7 @@
                                 }}</label>
                                 <input
                                     v-model="checkedServices"
+                
                                     type="checkbox"
                                     :name="service.name"
                                     :id="service.name"
@@ -115,10 +103,11 @@ export default {
             show: true,
             searchInput: "",
             services: [],
-            baseUri: "http://127.0.0.1:8000/api/services",
-            checkedServices: [],
-            beds: 0,
-            rooms: 0,
+            baseUri: 'http://127.0.0.1:8000/api/services',
+            checkedServices:[],
+            beds:0,
+            rooms:0,
+            range: '10',
         };
     },
 
@@ -127,12 +116,7 @@ export default {
             return (this.show = !this.show);
         },
         emitSearch() {
-            this.$emit("search", [
-                this.searchInput,
-                this.checkedServices,
-                this.beds,
-                this.rooms,
-            ]);
+            this.$emit("search", [this.searchInput, this.checkedServices, this.range]);
         },
         getServices() {
             axios.get(`${this.baseUri}`).then((res) => {

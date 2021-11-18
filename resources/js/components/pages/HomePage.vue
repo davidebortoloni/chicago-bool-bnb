@@ -34,17 +34,44 @@ export default {
     },
     computed: {},
     methods: {
-        getApartments(search = ["", []]) {
+        getApartments(search = ['', []]) {
+            console.log(search);
             const checkedServices = search[1];
-            axios.get(`${this.baseUri}?city=${search[0]}`).then((res) => {
+            const distance = search[3]
+            if(search[0] != ''){
+                axios.get(`https://api.tomtom.com/search/2/geocode/${search[0]}.json?key=vtdFSJllnslhwVN2fYmWoOC1byNKWxbG`).then(res => {
+                   const position = res.data.results[0].position;
+                   const lat = position.lat;
+                   const lon = position.lon;
+                    console.log(position);
+                   axios.get(`${this.baseUri}/?lat=${lat}&lon=${lon}&distance=${distance}`).then((r) => {
+                    this.apartments = r.data;
+                    console.log(r.data);
+                    const filteredApartments = [];
+                    if (checkedServices.length) {
+                        this.apartments.data.forEach(apartment => {
+                            let counter = 0;
+                            apartment.services.forEach((service) => {
+                                if(checkedServices.includes(service.name)) {
+                                    counter++;
+                                    if(!filteredApartments.includes(apartment) && counter == (checkedServices.length)) {
+                                        filteredApartments.push(apartment);
+                                    }
+                                }
+                            })
+                        })
+                        this.apartments.data = filteredApartments;
+                    }
+
+                    }
+                )
+                })
+                } else{
+            axios.get(`${this.baseUri}`).then((res) => {
                 this.apartments = res.data;
                 const filteredApartments = [];
-                if (
-                    checkedServices.length ||
-                    (beds >= 0 && beds < 10) ||
-                    (rooms >= 0 && rooms < 10)
-                ) {
-                    this.apartments.data.forEach((apartment) => {
+                if (checkedServices.length) {
+                    this.apartments.data.forEach(apartment => {
                         let counter = 0;
                         apartment.services.forEach((service) => {
                             if (checkedServices.includes(service.name)) {
@@ -60,7 +87,9 @@ export default {
                     });
                     this.apartments.data = filteredApartments;
                 }
-            });
+
+                }
+            )}
         },
 
         setCurrentApartment(index) {
