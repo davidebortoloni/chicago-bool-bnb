@@ -51,12 +51,12 @@ class ApartmentController extends Controller
                     ['lon', '>', $min_lon],
                     ['lon', '<', $max_lon]
                 ])
-                ->paginate(10)->toArray();
+                ->paginate(12)->toArray();
         } else {
             $apartments = Apartment::join('addresses', 'apartments.id', '=', 'addresses.apartment_id')
                 ->with('services')
                 ->with('sponsorships')
-                ->paginate(10)->toArray();
+                ->paginate(12)->toArray();
         }
 
         return response()->json($apartments);
