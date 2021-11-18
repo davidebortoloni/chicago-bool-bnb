@@ -34,9 +34,6 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <p>{{ apartment.apartment.description }}</p>
-                    </div>
-                    <div class="col-12">
                         <div
                             id="info"
                             class="
@@ -70,6 +67,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-12">
+                        <h3>Servizi</h3>
+                        <div id="services" class="row align-items-center my-3">
+                            <div
+                                class="col-3"
+                                v-for="service in apartment.services"
+                                :key="service.id"
+                            >
+                                {{ service.name }}
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-6">
                         <h3>Servizi:</h3>
                         <div id="services" class="row align-items-center my-3">
@@ -86,22 +95,22 @@
                 </div>
             </div>
             <div class="col-12 col-xl-6">
-                <figure>
-                    <img
-                        src="https://liveatnolan.com/wp-content/uploads/2018/06/Placeholder-Map.jpg"
-                        alt="apartment location"
-                        class="img-fluid"
-                    />
-                </figure>
+                <TomtomMap :lat='apartment.address.lat' :lon='apartment.address.lon' :street='apartment.address.street'/>
             </div>
+
         </div>
     </section>
 </template>
 
 <script>
 import axios from "axios";
+import TomtomMap from "../tomtom/TomtomMap.vue";
+
 export default {
     name: "ApartmentShow",
+    components: {
+        TomtomMap,
+    },
     data() {
         return {
             apartment: null,
