@@ -12,7 +12,7 @@ export default {
     methods: {
         addMarker(map) {
             const tt = window.tt;
-            var location = [this.lat, this.lon];
+            var location = [this.lon, this.lat];
             var popupOffset = 25;
 
             var marker = new tt.Marker().setLngLat(location).addTo(map);
@@ -26,7 +26,7 @@ export default {
             var map = tt.map({
                 key: "DZpdDftAOlPmZZ5gbjHUVdd43CUnr2NZ",
                 container: this.$refs.mapRef,
-                center : [this.lat, this.lon],
+                center : [this.lon, this.lat],
                 zoom: 13,
             });
             map.addControl(new tt.FullscreenControl());
