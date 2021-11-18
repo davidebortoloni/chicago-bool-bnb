@@ -19,10 +19,10 @@
         <th scope="col">Proprietario</th>
         @endif
         <th scope="col">Nome casa</th>
-        <th scope="col">Stanze</th>
-        <th scope="col">MQ</th>
+        <th scope="col" class="d-none d-md-table-cell">Stanze</th>
+        <th scope="col" class="d-none d-md-table-cell">MQ</th>
         <th scope="col">Disponibilità</th>
-        <th scope="col"></th>
+        <th scope="col">Azioni</th>
       </tr>
     </thead>
     <tbody>
@@ -33,8 +33,8 @@
         <td>{{$apartment->user->name}} {{$apartment->user->lastname}}</td>
         @endif
         <td class="text-capitalize">{{$apartment->title}}</td>
-        <td>{{$apartment->n_rooms}}</td>
-        <td>{{$apartment->sqrmt}}</td>
+        <td class="d-none d-md-table-cell">{{$apartment->n_rooms}}</td>
+        <td class="d-none d-md-table-cell">{{$apartment->sqrmt}}</td>
         <td>@if ($apartment->visibility) Disponibile @else Non disponibile @endif</td>
         <td class="">
           <div class="dropdown">
