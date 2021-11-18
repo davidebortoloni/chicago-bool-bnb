@@ -24,7 +24,7 @@
                         <button
                             type="button"
                             class="btn btn-light"
-                            @click="showComponent()"
+                            v-on:click="show = !show"
                         >
                             Ricerca avanzata
                         </button>
@@ -49,22 +49,32 @@
             </div>
         </section>
 
-        <section
-            class="advanced-search mt-5"
-            :class="show === false ? '' : 'd-none'"
-        >
+        <section class="advanced-search mt-5" v-if="show">
             <div class="container">
                 <div class="row">
-                <div class="col-2 d-flex justify-content-between form-group">
-                    <label for="distance">Distanza</label>
-                    <select name="distance" class="form-control ml-2" v-model="range" id="distance">
-                        <option value="5">5 km</option>
-                        <option value="10">10 km</option>
-                        <option value="20">20 km</option>
-                        <option value="50">50 km</option>
-                    </select>
+                    <div
+                        class="
+                            col-3
+                            d-flex
+                            justify-content-between
+                            flex-wrap
+                            form-group
+                        "
+                    >
+                        <label for="distance">Distanza</label>
+                        <select
+                            name="distance"
+                            class="form-control"
+                            v-model="range"
+                            id="distance"
+                        >
+                            <option value="5">5 km</option>
+                            <option value="10">10 km</option>
+                            <option value="20">20 km</option>
+                            <option value="50">50 km</option>
+                        </select>
                     </div>
-                    <div class="col-10 p-0 services">
+                    <div class="col-9 p-0 services">
                         <ul
                             class="d-flex flex-wrap justify-content-between p-0"
                             id="services-list"
@@ -79,7 +89,6 @@
                                 }}</label>
                                 <input
                                     v-model="checkedServices"
-                
                                     type="checkbox"
                                     :name="service.name"
                                     :id="service.name"
@@ -100,23 +109,24 @@ export default {
 
     data() {
         return {
-            show: true,
+            show: false,
             searchInput: "",
             services: [],
-            baseUri: 'http://127.0.0.1:8000/api/services',
-            checkedServices:[],
-            beds:0,
-            rooms:0,
-            range: '10',
+            baseUri: "http://127.0.0.1:8000/api/services",
+            checkedServices: [],
+            beds: 0,
+            rooms: 0,
+            range: "10",
         };
     },
 
     methods: {
-        showComponent() {
-            return (this.show = !this.show);
-        },
         emitSearch() {
-            this.$emit("search", [this.searchInput, this.checkedServices, this.range]);
+            this.$emit("search", [
+                this.searchInput,
+                this.checkedServices,
+                this.range,
+            ]);
         },
         getServices() {
             axios.get(`${this.baseUri}`).then((res) => {
