@@ -23,6 +23,7 @@ Route::middleware('auth')->name('admin.')->prefix('admin')->namespace('Admin')->
     Route::resource('sponsorships', 'SponsorshipController');
     Route::resource('services', 'ServiceController');
     Route::resource('users', 'UserController');
+    Route::resource('messages', 'MessageController');
 });
 
 Route::get('{any?}', function () {

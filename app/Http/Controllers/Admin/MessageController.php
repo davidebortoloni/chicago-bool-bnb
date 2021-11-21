@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,7 +16,8 @@ class MessageController extends Controller
      */
     public function index()
     {
-        //
+        $messages = Message::all();
+        return view('admin.messages.index', compact('messages'));
     }
 
     /**
@@ -26,8 +27,7 @@ class MessageController extends Controller
      */
     public function create()
     {
-        $message = new Message();
-        return view('apartments.index');
+        //
     }
 
     /**
@@ -38,20 +38,7 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
-            [
-                'email' => 'string',
-                'text' => 'string',
-            ]
-            );
-
-        $data = $request->all();
-        
-        $message = new Message();
-
-        $message->fill($data);
-
-        $message->save();
+        //
     }
 
     /**
