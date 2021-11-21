@@ -149,7 +149,7 @@ export default {
         },
         sendMessage(message, eMail) {
             if(message != '' && eMail != '') {
-                axios.post( 'http://127.0.0.1:8000/api/message/', {mail: eMail, message:message, apartment_id: this.apartment.apartment.id}).then(res => {
+                axios.post( `http://127.0.0.1:8000/api/message/?email=${this.eMail}&text=${this.message}&apartment_id=${this.apartment.apartment.id}`).then(res => {
                     console.log(res);
                     if(res.status == 200) {
                         this.callResponse = "Messaggio inviato con successo";
@@ -158,14 +158,15 @@ export default {
                         setTimeout(() =>{
                             this.callFlag = 0;
                         }, 10000)
-                        } else {
+                        }
+                }).catch(() => {
                             this.callResponse = "Messaggio non inviato";
                             this.alertStatus = 'alert-danger';
                             this.callFlag = 1;
                         setTimeout(() =>{
                             this.callFlag = 0;
                         }, 10000)
-                        }
+                        
                 })
             }
         }
