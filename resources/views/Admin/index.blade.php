@@ -20,6 +20,7 @@
                             <a href="{{ route('admin.sponsorships.index') }}"
                                 class="btn btn-secondary">Sponsorizzazioni</a>
                             <a href="{{ route('admin.services.index') }}" class="btn btn-secondary">Servizi</a>
+                            <a href="{{ route('admin.messages.index') }}" class="btn btn-secondary">Messaggi</a>
                         @else
                             <ul class="list-unstyled">
                                 <li><strong>Data di nascita:</strong> {{ $user->birth_date }}</li>
@@ -30,6 +31,7 @@
                             </ul>
                             <a href="{{ route('admin.apartments.index') }}" class="btn btn-secondary">Le tue case</a>
                             <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-secondary">Modifica i tuoi dati</a>
+                            <a href="{{ route('admin.messages.index') }}" class="btn btn-secondary">Messaggi</a>
                         @endif
                     </div>
                 </div>
