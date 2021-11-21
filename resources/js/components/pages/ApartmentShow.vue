@@ -68,18 +68,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <h3>Servizi</h3>
-                        <div id="services" class="row align-items-center my-3">
-                            <div
-                                class="col-3"
-                                v-for="service in apartment.services"
-                                :key="service.id"
-                            >
-                                {{ service.name }}
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-6">
                         <h3>Servizi:</h3>
                         <div id="services" class="row align-items-center my-3">
