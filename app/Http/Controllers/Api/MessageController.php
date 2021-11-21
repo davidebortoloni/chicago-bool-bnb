@@ -43,13 +43,14 @@ class MessageController extends Controller
                 'email' => 'string',
                 'text' => 'string',
             ]
-            );
+        );
 
         $data = $request->all();
-        
         $message = new Message();
 
-        $message->fill($data);
+        $message->email = $data['email'];
+        $message->text = $data['text'];
+        $message->apartment_id = $data['apartment_id'];
 
         $message->save();
     }
