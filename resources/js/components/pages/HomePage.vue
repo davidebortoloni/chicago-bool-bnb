@@ -4,12 +4,20 @@
         <Search class="mb-2" @search="getApartments" />
         <div class="row justify-content-center flex-wrap w-100 m-0">
             <ApartmentCard
-                v-on="(show = !show)"
                 v-for="apartment in apartments.data"
                 :key="apartment.id"
                 :apartment="apartment"
                 class="m-3"
             />
+        </div>
+        <div class="d-flex justify-content-center">
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+            <!-- <button type="button" class="btn btn-secondary">←</button> -->
+            <button type="button" class="btn btn-secondary" v-for="n in apartments.last_page" :key="n" @click="getApartments(['', []], n)">{{n}}</button>
+            <!-- <button type="button" class="btn btn-secondary">→</button> -->
+        </div>
+        </div>
         </div>
     </section>
 </template>
@@ -34,7 +42,7 @@ export default {
     },
     computed: {},
     methods: {
-        getApartments(search = ["", []]) {
+        getApartments(search = ["", []], page = 1) {
             console.log(search);
             const checkedServices = search[1];
             const distance = search[3];
@@ -50,7 +58,7 @@ export default {
                         console.log(position);
                         axios
                             .get(
-                                `${this.baseUri}/?lat=${lat}&lon=${lon}&distance=${distance}`
+                                `${this.baseUri}/?lat=${lat}&lon=${lon}&distance=${distance}&page=${page}`
                             )
                             .then((r) => {
                                 this.apartments = r.data;
@@ -89,8 +97,9 @@ export default {
                             });
                     });
             } else {
-                axios.get(`${this.baseUri}`).then((res) => {
+                axios.get(`${this.baseUri}?page=${page}`).then((res) => {
                     this.apartments = res.data;
+                    console.log(this.apartments)
                     const filteredApartments = [];
                     if (checkedServices.length) {
                         this.apartments.data.forEach((apartment) => {
