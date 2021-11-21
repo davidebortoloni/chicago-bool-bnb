@@ -1,5 +1,6 @@
 <template>
     <section class="container text-left">
+        <div :class="[alertStatus]" class="alert" id="alert-message" v-if="callFlag">{{callResponse}}</div>
         <div class="row">
             <div class="col-12">
                 <h1 class="text-capitalize">{{ apartment.apartment.title }}</h1>
@@ -127,6 +128,9 @@ export default {
             apartment: null,
             eMail: '',
             message: '',
+            callResponse: '',
+            callFlag: 0,
+            alertStatus: '',
         };
     },
     methods: {
@@ -146,7 +150,22 @@ export default {
         sendMessage(message, eMail) {
             if(message != '' && eMail != '') {
                 axios.post( 'http://127.0.0.1:8000/api/message/', {mail: eMail, message:message, apartment_id: this.apartment.apartment.id}).then(res => {
-                    console.log(res)
+                    console.log(res);
+                    if(res.status == 200) {
+                        this.callResponse = "Messaggio inviato con successo";
+                        this.alertStatus = 'alert-success'
+                        this.callFlag = 1;
+                        setTimeout(() =>{
+                            this.callFlag = 0;
+                        }, 10000)
+                        } else {
+                            this.callResponse = "Messaggio non inviato";
+                            this.alertStatus = 'alert-danger';
+                            this.callFlag = 1;
+                        setTimeout(() =>{
+                            this.callFlag = 0;
+                        }, 10000)
+                        }
                 })
             }
         }

@@ -26,7 +26,8 @@ class MessageController extends Controller
      */
     public function create()
     {
-        //
+        $message = new Message();
+        return view('apartments.index');
     }
 
     /**
@@ -37,7 +38,20 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(
+            [
+                'email' => 'string',
+                'text' => 'string',
+            ]
+            );
+
+        $data = $request->all();
+        
+        $message = new Message();
+
+        $message->fill($data);
+
+        $message->save();
     }
 
     /**
