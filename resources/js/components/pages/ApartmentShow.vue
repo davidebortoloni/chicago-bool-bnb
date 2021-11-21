@@ -97,7 +97,18 @@
             <div class="col-12 col-xl-6">
                 <TomtomMap :lat='apartment.address.lat' :lon='apartment.address.lon' :street='apartment.address.street'/>
             </div>
-
+        </div>
+        <div>
+            <h3 class="mt-5 h2">Contatta il proprietario</h3>
+              <div class="form-group">
+                <label for="mail">Indirizzo mail</label>
+                <input type="email" class="form-control" id="mail" v-model="eMail">
+              </div>
+              <div class="form-group">
+                <label for="message">Example textarea</label>
+                <textarea class="form-control" id="message" rows="5" v-model="message"></textarea>
+              </div>
+              <button class="btn btn-dark" @click="sendMessage(message, eMail)">Invia</button>
         </div>
     </section>
 </template>
@@ -114,6 +125,8 @@ export default {
     data() {
         return {
             apartment: null,
+            eMail: '',
+            message: '',
         };
     },
     methods: {
@@ -130,6 +143,13 @@ export default {
                     console.error(e.message);
                 });
         },
+        sendMessage(message, eMail) {
+            if(message != '' && eMail != '') {
+                axios.post( 'http://127.0.0.1:8000/api/message/create', {mail: eMail, message:message, apartment_id: this.apartment.apartment.id}).then(res => {
+                    console.log(res)
+                })
+            }
+        }
     },
     created() {
         this.getApartment();

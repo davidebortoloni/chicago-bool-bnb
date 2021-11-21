@@ -21,6 +21,7 @@ class ApartmentController extends Controller
             $lon = $request->lon;
             $distance = $request->distance;
 
+
             switch ($distance) {
                 case '5':
                     $range_lat = (1 / 111) * 5;
