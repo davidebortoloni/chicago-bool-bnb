@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Apartment;
 
 use App\Models\Message;
 
@@ -16,8 +18,15 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $messages = Message::all();
-        return view('admin.messages.index', compact('messages'));
+        $user_id = Auth::id();
+
+        if ($user_id == 1) {
+            $apartments = Apartment::paginate(10);
+        } else {
+            $apartments = Apartment::where('user_id', $user_id)->paginate(10);
+        }
+
+        return view('admin.messages.index', compact('apartments'));
     }
 
     /**
