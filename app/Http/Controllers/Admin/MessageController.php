@@ -21,9 +21,9 @@ class MessageController extends Controller
         $user_id = Auth::id();
 
         if ($user_id == 1) {
-            $apartments = Apartment::paginate(10);
+            $apartments = Apartment::all();
         } else {
-            $apartments = Apartment::where('user_id', $user_id)->paginate(10);
+            $apartments = Apartment::where('user_id', $user_id)->all();
         }
 
         return view('admin.messages.index', compact('apartments'));
