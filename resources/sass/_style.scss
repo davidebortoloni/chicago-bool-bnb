@@ -1,7 +1,7 @@
 // search bar
 .advanced-search {
     select {
-        max-height: 20px;
+        width: 100px;
     }
 }
 
@@ -24,6 +24,9 @@
     }
 }
 
+a:hover {
+    text-decoration: none;
+}
 // apartment show
 #services {
     ul {
