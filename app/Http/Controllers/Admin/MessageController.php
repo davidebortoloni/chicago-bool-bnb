@@ -23,7 +23,7 @@ class MessageController extends Controller
         if ($user_id == 1) {
             $apartments = Apartment::all();
         } else {
-            $apartments = Apartment::where('user_id', $user_id)->all();
+            $apartments = Apartment::where('user_id', $user_id)->get();
         }
 
         return view('admin.messages.index', compact('apartments'));
