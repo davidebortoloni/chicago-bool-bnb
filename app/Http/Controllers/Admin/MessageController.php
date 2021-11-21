@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Message;
 
@@ -16,6 +17,14 @@ class MessageController extends Controller
      */
     public function index()
     {
+        $user_id = Auth::id();
+
+        if ($user_id == 1) {
+            $messages = Message::paginate(10);
+        } else {
+            $messages = Message::where('user_id', $user_id)->paginate(10);
+        }
+
         $messages = Message::all();
         return view('admin.messages.index', compact('messages'));
     }
