@@ -21,27 +21,43 @@ class ApartmentController extends Controller
             $lon = $request->lon;
             $distance = $request->distance;
 
+            // switch ($distance) {
+            //     case '5':
+            //         $range_lat = (1 / 111) * 5;
+            //         $range_lon = (1 / 85) * 5;
+            //         break;
+            //     case '10':
+            //         $range_lat = (1 / 111) * 10;
+            //         $range_lon = (1 / 85) * 10;
+            //         break;
+            //     case '20':
+            //         $range_lat = (1 / 111) * 20;
+            //         $range_lon = (1 / 85) * 20;
+            //         break;
+            //     case '50':
+            //         $range_lat = (1 / 111) * 50;
+            //         $range_lon = (1 / 85) * 50;
 
-            switch ($distance) {
-                case '5':
-                    $range_lat = (1 / 111) * 5;
-                    $range_lon = (1 / 85) * 5;
-                    break;
-                case '10':
-                    $range_lat = (1 / 111) * 10;
-                    $range_lon = (1 / 85) * 10;
-                    break;
-                case '20':
-                    $range_lat = (1 / 111) * 20;
-                    $range_lon = (1 / 85) * 20;
-                    break;
-                case '50':
-                    $range_lat = (1 / 111) * 50;
-                    $range_lon = (1 / 85) * 50;
-                    break;
-                default:
-                    $range_lat = (1 / 111) * 10;
-                    $range_lon = (1 / 85) * 10;
+            //         break;
+            //     default:
+            //         $range_lat = (1 / 111) * 10;
+            //         $range_lon = (1 / 85) * 10;
+            // }
+            if ($distance == 5) {
+                $range_lat = (1 / 111) * 5;
+                $range_lon = (1 / 85) * 5;
+            } else if ($distance == 10) {
+                $range_lat = (1 / 111) * 10;
+                $range_lon = (1 / 85) * 10;
+            } else if ($distance == 20) {
+                $range_lat = (1 / 111) * 20;
+                $range_lon = (1 / 85) * 20;
+            } else if ($distance == 50) {
+                $range_lat = (1 / 111) * 50;
+                $range_lon = (1 / 85) * 50;
+            } else {
+                $range_lat = (1 / 111) * 10;
+                $range_lon = (1 / 85) * 10;
             }
             $min_lat = $lat - $range_lat;
             $max_lat = $lat + $range_lat;
