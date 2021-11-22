@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => true]);
+Route::post('register', 'RegisterController@store')->name('advanced_register');
 
 Route::middleware('auth')->name('admin.')->prefix('admin')->namespace('Admin')->group(function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');

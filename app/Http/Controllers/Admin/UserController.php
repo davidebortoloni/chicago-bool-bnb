@@ -37,8 +37,7 @@ class UserController extends Controller
         $user_id = Auth::id();
 
         if ($user_id == 1) {
-            $user = new User();
-            return view('admin.users.create', compact('user'));
+            return view('admin.users.create');
         } else {
             return redirect()->route('admin.dashboard');
         }
@@ -66,9 +65,10 @@ class UserController extends Controller
             ]);
 
             $data = $request->all();
-
+            $data['password'] = bcrypt($data['password']);
             $user = new User();
             $user->fill($data);
+            $user->is_owner = 0;
 
             $user->save();
 

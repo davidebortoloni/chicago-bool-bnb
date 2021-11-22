@@ -109,6 +109,10 @@ class ApartmentController extends Controller
 
         $address->save();
 
+        $user = Auth::user();
+        $user->is_owner = 1;
+        $user->save();
+
         if (array_key_exists('services', $data)) $apartment->services()->attach($data['services']);
 
         return redirect()->route('admin.apartments.show', compact('apartment'));
@@ -224,10 +228,15 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
+        $user = Auth::user();
         if (count($apartment->services)) $apartment->services()->detach();
         if ($apartment->image) Storage::delete($apartment->image);
         $apartment->delete();
         $apartment->address->delete();
+        if (!count($user->apartments)) {
+            $user->is_owner = 0;
+            $user->save();
+        }
         return redirect()->route('admin.apartments.index')->with('alert-message', 'Appartamento eliminato con successo.')->with('alert-type', 'success');
     }
 }

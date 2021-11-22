@@ -53,26 +53,11 @@
             </div>
 
             <div class="form-group row">
-                <label for="is_owner" class="col-md-4 col-form-label text-md-right">E' un proprietario</label>
-
-                <div class="col-md-6">
-                    <input id="is_owner" type="text" class="form-control @error('is_owner') is-invalid @enderror"
-                        name="is_owner" value="{{ old('is_owner') }}" required autocomplete="is_owner" autofocus>
-
-                    @error('is_owner')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="form-group row">
                 <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
 
                 <div class="col-md-6">
                     <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email"
-                        value="{{ old('email', $user->email) }}">
+                        value="{{ old('email') }}">
                     @error('email')
                         <div class="invalid-feedback">
                             {{ $message }}
