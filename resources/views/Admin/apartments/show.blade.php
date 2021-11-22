@@ -4,6 +4,11 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
+                @if (session('alert-message'))
+                    <div class="alert alert-{{ session('alert-type') }}">
+                        {{ session('alert-message') }}
+                    </div>
+                @endif
                 <h1 class="text-capitalize">{{ $apartment->title }}</h1>
             </div>
             <div class="col-12 col-md-6">
@@ -30,6 +35,7 @@
             <div class="col-12">
                 <a href="{{ route('admin.apartments.index') }}" class="btn btn-primary">Lista delle tue case</a>
                 <a href="{{ route('admin.apartments.edit', $apartment->id) }}" class="btn btn-warning">Modifica</a>
+                <a href="{{ route('admin.sponsorships.purchase', $apartment->id) }}" class="btn btn-info">Sponsorizza</a>
                 <form class="d-inline delete-button" action="{{ route('admin.apartments.destroy', $apartment->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
