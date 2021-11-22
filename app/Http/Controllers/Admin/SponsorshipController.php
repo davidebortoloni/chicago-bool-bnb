@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Apartment;
 use App\Models\Sponsorship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -161,5 +162,11 @@ class SponsorshipController extends Controller
         } else {
             return redirect()->route('admin.dashboard');
         }
+    }
+
+    public function purchase(Apartment $apartment)
+    {
+        $sponsorships = Sponsorship::all();
+        return view('admin.sponsorships.purchase', compact('sponsorships', 'apartment'));
     }
 }
