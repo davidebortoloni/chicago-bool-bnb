@@ -22,7 +22,7 @@ class PaymentsController extends Controller
     {
         $result = $gateway->transaction()->sale([
             'amount' => $sponsorship->price,
-            'paymentMethodNonce' => 'fake-valid-nonce',
+            'paymentMethodNonce' => $request->payment_method_nonce,
             'options' => [
                 'submitForSettlement' => true
             ]
@@ -30,7 +30,7 @@ class PaymentsController extends Controller
 
         if ($result->success) {
             $hours = $sponsorship->duration;
-            if ($apartment->sponsorships) {
+            if (count($apartment->sponsorships)) {
                 $last_sponsorship = DB::table('apartment_sponsorship')->where('apartment_id', $apartment->id)->latest('expiration')->first();
                 $created_at = Carbon::parse($last_sponsorship->expiration);
             } else {
